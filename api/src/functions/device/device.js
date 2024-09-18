@@ -2,7 +2,7 @@ import { logger } from 'src/lib/logger'
 import OpenAI from 'openai'
 
 const openai = new OpenAI()
-const prompt = 'You are a comedian and you must make a joke based on the input given by the user.'
+const prompt = 'Just repeat back what you heard with a friendly message'
 
 async function getResponse(transcript) {
   const chatCompletion = await openai.chat.completions.create({
@@ -16,8 +16,8 @@ export const handler = async (event, _context) => {
   logger.info(`${event.httpMethod} ${event.path}: device function`)
   //console.log(JSON.parse(event.body))
 
-  const transcript=JSON.parse(event.body).transcript
-  const response=await getResponse(transcript)
+  const transcript = JSON.parse(event.body).transcript
+  const response = await getResponse(transcript)
   //console.log(response)
 
   return {
