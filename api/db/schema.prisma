@@ -1,8 +1,6 @@
 // Don't forget to tell Prisma about your edits to this file using
 // `yarn rw prisma migrate dev` or `yarn rw prisma db push`.
 // `migrate` is like committing while `push` is for prototyping.
-// Read more about both here:
-// https://www.prisma.io/docs/orm/prisma-migrate
 
 datasource db {
   provider = "sqlite"
@@ -14,46 +12,58 @@ generator client {
   binaryTargets = "native"
 }
 
-// Define your own datamodels here and run `yarn redwood prisma migrate dev`
-// to create migrations for them and apply to your dev DB.
-// TODO: Please remove the following example:
 model CareGiver {
-  id        Int        @id @default(autoincrement())
-  email     String     @unique
-  name      String?
-  patients  Patient[]
-  schedules Schedule[]
+  id              Int        @id @default(autoincrement())
+  email           String     @unique
+  name            String
+  patients        Patient[]
+  // schedules       DailySchedule[]
 }
 
 model Patient {
-  id          Int         @id @default(autoincrement())
-  name        String
-  patientInfo String?
-  timezome    String
-  deviceId    String
-  careGivers  CareGiver[]
-  schedules   Schedule[]
+  id              Int         @id @default(autoincrement())
+  name            String
+  patientInfo     String?
+  timezone        String
+  deviceId        String
+  careGivers      CareGiver[]
+  // schedules       DailySchedule[]
+  tasks           Task[]
+  actions         Action[]
 }
 
-model Schedule {
-  id         Int         @id @default(autoincrement())
-  date       String
-  patient    Patient     @relation(fields: [patientId], references: [id])
-  patientId  Int
-  activities Activity[]
-  careGivers CareGiver[]
+// model DailySchedule {
+//   id              Int         @id @default(autoincrement())
+//   date            String
+//   patient         Patient     @relation(fields: [patientId], references: [id])
+//   patientId       Int
+//   tasks           Task[]
+//   careGivers      CareGiver[]
+// }
+
+model Task {
+  id              Int         @id @default(autoincrement())
+  date            String
+  time            String
+  // repeatsOn       String?
+  // repeatsUntil    String?
+  description     String
+  instructions    String?
+  patient         Patient     @relation(fields: [patientId], references: [id])
+  patientId       Int
+  // schedules       DailySchedule[]
+  // reminderBefore  String
+  // reminderAfter   String?
+  actions         Action[]
 }
 
-model Activity {
-  id             Int        @id @default(autoincrement())
-  date           String
-  time           String
-  repeatsOn      String?
-  repeatsUntil   String?
-  description    String
-  instructions   String?
-  patientId      Int
-  schedules      Schedule[]
-  reminderBefore String
-  reminderAfter  String?
+model Action {
+  id              Int         @id @default(autoincrement())
+  patient         Patient     @relation(fields: [patientId], references: [id])
+  patientId       Int
+  task            Task        @relation(fields: [taskId], references: [id])
+  taskId          Int
+  details         String
+  date            String
+  time            String
 }
