@@ -1,14 +1,19 @@
-import { logger } from 'src/lib/logger'
 import OpenAI from 'openai'
 
+import { logger } from 'src/lib/logger'
+
 const openai = new OpenAI()
-const prompt = 'Just repeat back what you heard with a friendly message'
+const prompt =
+  'Do your best to respond to the user input in a friendly and polite manner'
 
 async function getResponse(transcript) {
   const chatCompletion = await openai.chat.completions.create({
-    messages: [{ role: 'system', content: prompt },{ role: 'user', content: transcript }],
+    messages: [
+      { role: 'system', content: prompt },
+      { role: 'user', content: transcript },
+    ],
     model: 'gpt-3.5-turbo',
-  });
+  })
   return chatCompletion.choices[0].message.content
 }
 
@@ -30,11 +35,6 @@ export const handler = async (event, _context) => {
     }),
   }
 }
-
-
-
-
-
 
 /**
  * The handler function is your code that processes http request events.
