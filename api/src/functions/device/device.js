@@ -12,6 +12,21 @@ async function getResponse(transcript) {
       { role: 'system', content: prompt },
       { role: 'user', content: transcript },
     ],
+    tools: [
+      {
+          "type": "function",
+          "function": {
+              "name": "tasksForPatientOnDate",
+              "description": "Get the schedule for a patient on a specific date. This will be a list of tasks that the patient should complete at specific times. Call this whenever you need to know the patient's schedule, for example when a patient asks 'What do I have to do today'",
+              "parameters": {
+                  "type": "object",
+                  "properties": {},
+                  "required": [],
+                  "additionalProperties": False,
+              },
+          }
+      }
+    ],
     model: 'gpt-3.5-turbo',
   })
   return chatCompletion.choices[0].message.content
@@ -52,3 +67,29 @@ export const handler = async (event, _context) => {
  * @param { Context } _context - contains information about the invocation,
  * function, and execution environment.
  */
+
+
+// tools: [
+//   {
+//       "type": "function",
+//       "function": {
+//           "name": "tasksForPatientOnDate",
+//           "description": "Get the schedule for a patient on a specific date. This will be a list of tasks that the patient should complete at specific times. Call this whenever you need to know the patient's schedule, for example when a patient asks 'What do I have to do today'",
+//           "parameters": {
+//               "type": "object",
+//               "properties": {
+//                   "id": {
+//                     "type": "integer",
+//                     "description": "The patient ID.",
+//                   },
+//                   "date": {
+//                     "type": "string",
+//                     "description": "The date on which the tasks should be completed",
+//                   }
+//               },
+//               "required": ["id", "date"],
+//               "additionalProperties": False,
+//           },
+//       }
+//   }
+// ],

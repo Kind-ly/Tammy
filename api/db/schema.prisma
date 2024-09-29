@@ -13,60 +13,60 @@ generator client {
 }
 
 model Device {
-  id              Int         @id @default(autoincrement())
-  CareGiver       CareGiver   @relation(fields: [careGiverId], references: [id])
-  careGiverId     Int         @unique
+  id          Int       @id @default(autoincrement())
+  CareGiver   CareGiver @relation(fields: [careGiverId], references: [id])
+  careGiverId Int       @unique
 }
 
 model CareGiver {
-  id              Int         @id @default(autoincrement())
-  email           String      @unique
-  name            String
-  patients        Patient[]
-  devices         Device[]
+  id       Int       @id @default(autoincrement())
+  email    String    @unique
+  name     String
+  patients Patient[]
+  devices  Device[]
 }
 
 model Patient {
-  id              Int         @id @default(autoincrement())
-  name            String
-  patientInfo     String?
-  timezone        String
-  careGivers      CareGiver[]
-  tasks           Task[]
-  actions         Action[]
-  reminders       Reminder[]
+  id          Int         @id @default(autoincrement())
+  name        String
+  patientInfo String?
+  timezone    String
+  careGivers  CareGiver[]
+  tasks       Task[]
+  actions     Action[]
+  reminders   Reminder[]
 }
 
 model Task {
-  id              Int           @id @default(autoincrement())
-  date            String
-  time            String
-  description     String
-  instructions    String?
-  patient         Patient       @relation(fields: [patientId], references: [id])
-  patientId       Int
-  action          Action?
-  reminder        Reminder?
+  id           Int       @id @default(autoincrement())
+  date         String
+  time         String
+  description  String
+  instructions String?
+  patient      Patient   @relation(fields: [patientId], references: [id])
+  patientId    Int
+  actions      Action[]
+  reminder     Reminder?
 }
 
 model Action {
-  id              Int           @id @default(autoincrement())
-  patient         Patient       @relation(fields: [patientId], references: [id])
-  patientId       Int
-  task            Task          @relation(fields: [taskId], references: [id])
-  taskId          Int           @unique
-  details         String
-  date            String
-  time            String
+  id        Int     @id @default(autoincrement())
+  patient   Patient @relation(fields: [patientId], references: [id])
+  patientId Int
+  task      Task    @relation(fields: [taskId], references: [id])
+  taskId    Int     @unique
+  details   String
+  date      String
+  time      String
 }
 
 model Reminder {
-  id              Int           @id @default(autoincrement())
-  date            String
-  time            String
-  patient         Patient       @relation(fields: [patientId], references: [id])
-  patientId       Int
-  task            Task          @relation(fields: [taskId], references: [id])
-  taskId          Int           @unique
-  instructions    String
+  id           Int     @id @default(autoincrement())
+  date         String
+  time         String
+  patient      Patient @relation(fields: [patientId], references: [id])
+  patientId    Int
+  task         Task    @relation(fields: [taskId], references: [id])
+  taskId       Int     @unique
+  instructions String
 }
