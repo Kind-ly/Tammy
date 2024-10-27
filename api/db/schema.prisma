@@ -3,7 +3,7 @@
 // `migrate` is like committing while `push` is for prototyping.
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
