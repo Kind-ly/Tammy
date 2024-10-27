@@ -1,15 +1,16 @@
 import OpenAI from 'openai'
 
+import { getTasks } from 'src/functions/schedule/schedule'
 import { logger } from 'src/lib/logger'
+import { getSchedulePrompt } from 'src/lib/prompts'
 
 const openai = new OpenAI()
-const prompt =
-  'Do your best to respond to the user input in a friendly and polite manner'
 
 async function getResponse(transcript) {
+  // TODO: get the patient ID as a parameter – currently hard-coded in the prompt
   const chatCompletion = await openai.chat.completions.create({
     messages: [
-      { role: 'system', content: prompt },
+      { role: 'system', content: getSchedulePrompt },
       { role: 'user', content: transcript },
     ],
     tools: [
@@ -21,8 +22,13 @@ async function getResponse(transcript) {
             "Get the schedule for a patient on a specific date. This will be a list of tasks that the patient should complete at specific times. Call this whenever you need to know the patient's schedule, for example when a patient asks 'What do I have to do today'",
           parameters: {
             type: 'object',
-            properties: {},
-            required: [],
+            properties: {
+              id: {
+                type: 'string',
+                description: 'The patient ID.',
+              },
+            },
+            required: ['id'],
             additionalProperties: false,
           },
         },
@@ -30,16 +36,38 @@ async function getResponse(transcript) {
     ],
     model: 'gpt-3.5-turbo',
   })
-  return chatCompletion.choices[0].message.content
+
+  const message = chatCompletion.choices[0].message
+
+  if (message.tool_calls[0]?.id) {
+    const schedule = await getTasks({
+      id: parseInt(JSON.parse(message.tool_calls[0]?.function.arguments).id),
+    })
+    const finalResponse = await openai.chat.completions.create({
+      messages: [
+        { role: 'system', content: getSchedulePrompt },
+        { role: 'user', content: transcript },
+        message,
+        {
+          role: 'tool',
+          content: JSON.stringify(schedule),
+          tool_call_id: message.tool_calls[0].id,
+        },
+      ],
+      model: 'gpt-3.5-turbo',
+    })
+    return finalResponse.choices[0].message.content
+  } else {
+    return message.content
+  }
 }
 
 export const handler = async (event, _context) => {
   logger.info(`${event.httpMethod} ${event.path}: device function`)
-  //console.log(JSON.parse(event.body))
 
+  // TODO get the device ID and map to the patient ID
   const transcript = JSON.parse(event.body).transcript
   const response = await getResponse(transcript)
-  //console.log(response)
 
   return {
     statusCode: 200,
