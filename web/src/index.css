@@ -13,8 +13,8 @@
  */
 
  @layer base {
-  html {
-    @apply antialiased bg-slate-100;
+  html, body {
+    @apply antialiased bg-slate-100 font-sans;
   }
 }
 

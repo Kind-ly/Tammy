@@ -14,7 +14,7 @@ const MainLayout = ({ children }) => {
         </div>
       </div>
       <div className="w-full">
-        <div className="flex flex-col max-w-screen-xl p-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
+        <div className="max-w-screen-xl p-4 mx-auto md:px-6 lg:px-8">
           {children}
         </div>
       </div>

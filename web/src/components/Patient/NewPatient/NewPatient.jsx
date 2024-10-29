@@ -1,6 +1,5 @@
 import { navigate, routes } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
-
 import { toast } from '@redwoodjs/web/toast'
 
 import PatientForm from 'src/components/Patient/PatientForm'
@@ -31,16 +30,7 @@ const NewPatient = () => {
     createPatient({ variables: { input } })
   }
 
-  return (
-    <div className="rw-segment">
-      <header className="rw-segment-header">
-        <h2 className="rw-heading rw-heading-secondary">New Patient</h2>
-      </header>
-      <div className="rw-segment-main">
-        <PatientForm onSave={onSave} loading={loading} error={error} />
-      </div>
-    </div>
-  )
+  return <PatientForm onSave={onSave} loading={loading} error={error} />
 }
 
 export default NewPatient

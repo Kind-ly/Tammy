@@ -9,13 +9,16 @@
 
 import { Set, Router, Route } from '@redwoodjs/router'
 
-import ScaffoldLayout from 'src/layouts/ScaffoldLayout'
+// import ScaffoldLayout from 'src/layouts/ScaffoldLayout'
 
 const Routes = () => {
   return (
     <Router>
       <Route path="/" page={HomePage} name="home" />
-      <Set wrap={ScaffoldLayout} title="Actions" titleTo="actions" buttonLabel="New Action" buttonTo="newAction">
+      <Route path="/patients" page={PatientPatientsPage} name="patients" />
+      <Route path="/patients/new" page={PatientNewPatientPage} name="newPatient" />
+
+      {/* <Set wrap={ScaffoldLayout} title="Actions" titleTo="actions" buttonLabel="New Action" buttonTo="newAction">
         <Route path="/actions/new" page={ActionNewActionPage} name="newAction" />
         <Route path="/actions/{id:Int}/edit" page={ActionEditActionPage} name="editAction" />
         <Route path="/actions/{id:Int}" page={ActionActionPage} name="action" />
@@ -46,11 +49,9 @@ const Routes = () => {
         <Route path="/care-givers" page={CareGiverCareGiversPage} name="careGivers" />
       </Set>
       <Set wrap={ScaffoldLayout} title="Patients" titleTo="patients" buttonLabel="New Patient" buttonTo="newPatient">
-        <Route path="/patients/new" page={PatientNewPatientPage} name="newPatient" />
         <Route path="/patients/{id:Int}/edit" page={PatientEditPatientPage} name="editPatient" />
         <Route path="/patients/{id:Int}" page={PatientPatientPage} name="patient" />
-        <Route path="/patients" page={PatientPatientsPage} name="patients" />
-      </Set>
+      </Set> */}
       <Route notfound page={NotFoundPage} />
     </Router>
   )

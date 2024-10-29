@@ -1,6 +1,5 @@
 import { Link, routes } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
-
 import { toast } from '@redwoodjs/web/toast'
 
 import { QUERY } from 'src/components/Patient/PatientsCell'
@@ -56,20 +55,20 @@ const PatientsList = ({ patients }) => {
               <td>{truncate(patient.timezone)}</td>
               <td>
                 <nav className="rw-table-actions">
-                  <Link
+                  {/* <Link
                     to={routes.patient({ id: patient.id })}
                     title={'Show patient ' + patient.id + ' detail'}
                     className="rw-button rw-button-small"
                   >
                     Show
-                  </Link>
-                  <Link
+                  </Link> */}
+                  {/* <Link
                     to={routes.editPatient({ id: patient.id })}
                     title={'Edit patient ' + patient.id}
                     className="rw-button rw-button-small rw-button-blue"
                   >
                     Edit
-                  </Link>
+                  </Link> */}
                   <button
                     type="button"
                     title={'Delete patient ' + patient.id}

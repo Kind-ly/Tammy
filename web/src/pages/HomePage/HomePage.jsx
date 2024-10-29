@@ -7,7 +7,7 @@ const HomePage = () => {
     <MainLayout>
       <Metadata title="Home" description="Home page" />
 
-      <h1 className="font-sans">HomePage</h1>
+      <h1 className="text-2xl">HomePage</h1>
     </MainLayout>
   )
 }

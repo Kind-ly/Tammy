@@ -4,6 +4,7 @@ import {
   FieldError,
   Label,
   TextField,
+  TextAreaField,
   Submit,
 } from '@redwoodjs/forms'
 
@@ -13,75 +14,87 @@ const PatientForm = (props) => {
   }
 
   return (
-    <div className="rw-form-wrapper">
-      <Form onSubmit={onSubmit} error={props.error}>
-        <FormError
-          error={props.error}
-          wrapperClassName="rw-form-error-wrapper"
-          titleClassName="rw-form-error-title"
-          listClassName="rw-form-error-list"
-        />
+    <Form onSubmit={onSubmit} error={props.error}>
+      <FormError
+        error={props.error}
+        wrapperClassName="w-full rounded-md border text-red-700 mb-4 py-3 px-6 bg-red-50"
+        titleClassName="text-red-900"
+        listClassName="text-red-700"
+      />
 
-        <Label
-          name="name"
-          className="rw-label"
-          errorClassName="rw-label rw-label-error"
-        >
-          Name
-        </Label>
+      <Label
+        name="name"
+        className="mb-2 block text-base font-medium text-black"
+        errorClassName="text-red-700"
+      >
+        Patient Name
+        <p className="text-sm text-gray-700 font-normal mt-1">
+          This is something that could be spoken to the patient to put them at
+          ease.
+        </p>
+      </Label>
 
-        <TextField
-          name="name"
-          defaultValue={props.patient?.name}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
-        />
+      <FieldError name="name" className="text-red-700 mb-2 text-sm block" />
 
-        <FieldError name="name" className="rw-field-error" />
+      <TextField
+        name="name"
+        defaultValue={props.patient?.name}
+        className="mb-4 w-full rounded-md border border-slate-200 bg-white py-3 px-6 text-base font-medium text-black outline-none focus:border-teal-300 focus:shadow-md"
+        errorClassName="mb-6 w-full rounded-md border py-3 px-6 text-base font-medium outline-none focus:border-red-400 focus:shadow-md bg-red-50 border-red-500 text-red-900"
+        validation={{ required: "Please provide your patient's name" }}
+      />
 
-        <Label
-          name="patientInfo"
-          className="rw-label"
-          errorClassName="rw-label rw-label-error"
-        >
-          Patient info
-        </Label>
+      <Label
+        name="patientInfo"
+        className="mb-2 block text-base font-medium text-black"
+        errorClassName="text-red-700"
+      >
+        What is the patient&apos;s condition?
+        <span className="text-sm ml-1 italic font-normal">(optional)</span>
+      </Label>
 
-        <TextField
-          name="patientInfo"
-          defaultValue={props.patient?.patientInfo}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-        />
+      <FieldError
+        name="patientInfo"
+        className="text-red-700 mb-2 text-sm block"
+      />
 
-        <FieldError name="patientInfo" className="rw-field-error" />
+      <TextAreaField
+        name="patientInfo"
+        defaultValue={props.patient?.patientInfo}
+        className="mb-4 h-36 w-full rounded-md border border-slate-200 bg-white py-3 px-6 text-base font-medium text-black outline-none focus:border-teal-300 focus:shadow-md"
+        errorClassName="mb-6 w-full rounded-md border py-3 px-6 text-base font-medium outline-none focus:border-red-400 focus:shadow-md bg-red-50 border-red-500 text-red-900"
+      />
 
-        <Label
-          name="timezone"
-          className="rw-label"
-          errorClassName="rw-label rw-label-error"
-        >
-          Timezone
-        </Label>
+      <Label
+        name="timezone"
+        className="mb-2 block text-base font-medium text-black"
+        errorClassName="text-red-700"
+      >
+        Where does the patient live?
+        <p className="text-sm text-gray-700 font-normal mt-1">
+          This will help to determine their timezone
+        </p>
+      </Label>
 
-        <TextField
-          name="timezone"
-          defaultValue={props.patient?.timezone}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
-        />
+      <FieldError name="timezone" className="text-red-700 mb-2 text-sm block" />
 
-        <FieldError name="timezone" className="rw-field-error" />
+      <TextField
+        name="timezone"
+        defaultValue={props.patient?.timezone}
+        className="mb-6 w-full rounded-md border border-slate-200 bg-white py-3 px-6 text-base font-medium text-black outline-none focus:border-teal-300 focus:shadow-md"
+        errorClassName="mb-6 w-full rounded-md border py-3 px-6 text-base font-medium outline-none focus:border-red-400 focus:shadow-md bg-red-50 border-red-500 text-red-900"
+        validation={{
+          required: "Please provide the patient's general location",
+        }}
+      />
 
-        <div className="rw-button-group">
-          <Submit disabled={props.loading} className="rw-button rw-button-blue">
-            Save
-          </Submit>
-        </div>
-      </Form>
-    </div>
+      <Submit
+        disabled={props.loading}
+        className="flex flex-row text-white bg-teal-500 items-center w-full px-4 py-2 mt-2 text-lg font-semibold rounded-lg md:w-auto md:inline md:mt-0 hover:text-white focus:text-white hover:bg-teal-400 focus:bg-teal-400 focus:outline-none focus:shadow-outline transition-colors"
+      >
+        Save Patient Details
+      </Submit>
+    </Form>
   )
 }
 
