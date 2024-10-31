@@ -33,31 +33,26 @@ model Patient {
   timezone    String
   careGivers  CareGiver[]
   tasks       Task[]
-  actions     Action[]
   reminders   Reminder[]
 }
 
-model Task {
-  id           Int       @id @default(autoincrement())
-  date         String
-  time         String
-  description  String
-  instructions String?
-  patient      Patient   @relation(fields: [patientId], references: [id])
-  patientId    Int
-  actions      Action[]
-  reminder     Reminder?
+enum TasksStatus {
+  TODO
+  COMPLETED
+  UNCERTAIN
 }
 
-model Action {
-  id        Int     @id @default(autoincrement())
-  patient   Patient @relation(fields: [patientId], references: [id])
-  patientId Int
-  task      Task    @relation(fields: [taskId], references: [id])
-  taskId    Int     @unique
-  details   String
-  date      String
-  time      String
+model Task {
+  id            Int          @id @default(autoincrement())
+  date          String
+  time          String
+  description   String
+  instructions  String?
+  status        TasksStatus  @default(TODO)
+  timeCompleted String?
+  patient       Patient      @relation(fields: [patientId], references: [id])
+  patientId     Int
+  reminder      Reminder?
 }
 
 model Reminder {

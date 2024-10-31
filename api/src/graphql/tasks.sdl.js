@@ -1,19 +1,27 @@
 export const schema = gql`
+  enum TaskStatus {
+    TODO
+    COMPLETED
+    UNCERTAIN
+  }
+
   type Task {
     id: Int!
     date: String!
     time: String!
     description: String!
     instructions: String
+    status: TaskStatus
+    timeCompleted: String
     patient: Patient!
     patientId: Int!
-    action: Action
     reminder: Reminder
   }
 
   type Query {
     tasks: [Task!]! @requireAuth
     task(id: Int!): Task @requireAuth
+    tasksForPatient(id: Int!): [Task!] @skipAuth
     tasksForPatientOnDate(id: Int!, date: String!): [Task!] @skipAuth
   }
 
@@ -30,6 +38,8 @@ export const schema = gql`
     time: String
     description: String
     instructions: String
+    status: TaskStatus
+    timeCompleted: String
     patientId: Int
   }
 

@@ -29,7 +29,9 @@ const PatientsPage = () => {
               />
             </svg>
           </Link>
+          <span className="mx-2">/</span>
         </li>
+        <li>My Patients</li>
       </ol>
 
       <div className="w-full flex flex-row mb-4">

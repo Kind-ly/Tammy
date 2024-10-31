@@ -1,16 +1,25 @@
 import { db } from 'src/lib/db'
-import { patient } from '../patients/patients'
+
+// import { patient } from '../patients/patients'
 
 export const tasks = () => {
   return db.task.findMany()
+}
+
+export const tasksForPatient = ({ id }) => {
+  return db.task.findMany({
+    where: {
+      patientId: id,
+    },
+  })
 }
 
 export const tasksForPatientOnDate = ({ id, date }) => {
   return db.task.findMany({
     where: {
       patientId: id,
-      date
-    }
+      date,
+    },
   })
 }
 
@@ -42,9 +51,6 @@ export const deleteTask = ({ id }) => {
 export const Task = {
   patient: (_obj, { root }) => {
     return db.task.findUnique({ where: { id: root?.id } }).patient()
-  },
-  action: (_obj, { root }) => {
-    return db.task.findUnique({ where: { id: root?.id } }).action()
   },
   reminder: (_obj, { root }) => {
     return db.task.findUnique({ where: { id: root?.id } }).reminder()

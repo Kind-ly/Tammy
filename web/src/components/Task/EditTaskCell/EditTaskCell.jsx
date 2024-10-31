@@ -1,5 +1,4 @@
 import { navigate, routes } from '@redwoodjs/router'
-
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
@@ -34,7 +33,7 @@ const UPDATE_TASK_MUTATION = gql`
 export const Loading = () => <div>Loading...</div>
 
 export const Failure = ({ error }) => (
-  <div className="rw-cell-error">{error?.message}</div>
+  <div className="text-red-400">{error?.message}</div>
 )
 
 export const Success = ({ task }) => {

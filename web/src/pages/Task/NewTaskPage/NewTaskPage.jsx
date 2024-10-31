@@ -1,7 +1,12 @@
-import NewTask from 'src/components/Task/NewTask'
+import NewTaskCell from 'src/components/Task/NewTaskCell'
+import MainLayout from 'src/layouts/MainLayout/MainLayout'
 
-const NewTaskPage = () => {
-  return <NewTask />
+const NewTaskPage = ({ id }) => {
+  return (
+    <MainLayout>
+      <NewTaskCell patientId={id} />
+    </MainLayout>
+  )
 }
 
 export default NewTaskPage

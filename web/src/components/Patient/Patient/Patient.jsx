@@ -1,8 +1,9 @@
 import { Link, routes, navigate } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
+import { Metadata } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
-import 'src/lib/formatters'
+import TasksCell from 'src/components/Task/TasksCell/TasksCell'
 
 const DELETE_PATIENT_MUTATION = gql`
   mutation DeletePatientMutation($id: Int!) {
@@ -31,16 +32,55 @@ const Patient = ({ patient }) => {
 
   return (
     <>
+      <Metadata
+        title={patient.name}
+        description={patient.name + "'s details and schedule"}
+      />
+      <ol className="list-none p-0 inline-flex mb-6">
+        <li className="flex items-center">
+          <Link
+            to={routes.home()}
+            className="text-slate-600 hover:text-teal-500 transition-colors duration-300"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="size-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+              />
+            </svg>
+          </Link>
+          <span className="mx-2">/</span>
+        </li>
+        <li>
+          <Link
+            to={routes.patients()}
+            className="text-slate-600 hover:text-teal-500 transition-colors duration-300"
+          >
+            My Patients
+          </Link>
+          <span className="mx-2">/</span>
+        </li>
+        <li>{patient.name}</li>
+      </ol>
+
       <h1 className="text-2xl mb-4">{patient.name}</h1>
 
       <div className="flex flex-col-reverse md:flex-row w-full">
         <div className="flex-1 md:mr-6">
-          {/* schedule navigation */}
-          {/* today's schedule */}
-          <div className="w-full text-gray-800 bg-white shadow-md rounded-lg bg-clip-border p-4">
-            today&apos;s schedule
+          <div className="w-full text-gray-800 bg-white shadow-md rounded-lg bg-clip-border p-4 mb-4">
+            <TasksCell patientId={patient.id} />
           </div>
-          {/* full log */}
+          <div className="w-full text-gray-800 bg-white shadow-md rounded-lg bg-clip-border p-4">
+            patient&apos;s conversation log
+          </div>
         </div>
         <div className="md:flex-none md:w-1/3 mb-6 md:mb-0">
           <div className="w-full text-gray-800 bg-white shadow-md rounded-lg bg-clip-border p-4">

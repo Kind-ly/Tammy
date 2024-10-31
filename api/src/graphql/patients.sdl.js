@@ -6,7 +6,6 @@ export const schema = gql`
     timezone: String!
     careGivers: [CareGiver]!
     tasks: [Task]!
-    actions: [Action]!
     reminders: [Reminder]!
   }
 
