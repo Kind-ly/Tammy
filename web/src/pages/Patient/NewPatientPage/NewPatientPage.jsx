@@ -9,7 +9,7 @@ const NewPatientPage = () => {
     <MainLayout>
       <Metadata title="New Patient" description="Set up a new patient" />
 
-      <h1 className="text-2xl mb-4">Set up your patient</h1>
+      <h1 className="text-2xl mb-4">Set up your new patient</h1>
       <NewPatient />
     </MainLayout>
   )

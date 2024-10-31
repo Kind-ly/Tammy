@@ -1,74 +1,80 @@
 import { Link, routes } from '@redwoodjs/router'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
+// import { useMutation } from '@redwoodjs/web'
+// import { toast } from '@redwoodjs/web/toast'
 
-import { QUERY } from 'src/components/Patient/PatientsCell'
-import { truncate } from 'src/lib/formatters'
+// import { QUERY } from 'src/components/Patient/PatientsCell'
 
-const DELETE_PATIENT_MUTATION = gql`
-  mutation DeletePatientMutation($id: Int!) {
-    deletePatient(id: $id) {
-      id
-    }
-  }
-`
+// const DELETE_PATIENT_MUTATION = gql`
+//   mutation DeletePatientMutation($id: Int!) {
+//     deletePatient(id: $id) {
+//       id
+//     }
+//   }
+// `
 
 const PatientsList = ({ patients }) => {
-  const [deletePatient] = useMutation(DELETE_PATIENT_MUTATION, {
-    onCompleted: () => {
-      toast.success('Patient deleted')
-    },
-    onError: (error) => {
-      toast.error(error.message)
-    },
-    // This refetches the query on the list page. Read more about other ways to
-    // update the cache over here:
-    // https://www.apollographql.com/docs/react/data/mutations/#making-all-other-cache-updates
-    refetchQueries: [{ query: QUERY }],
-    awaitRefetchQueries: true,
-  })
+  // const [deletePatient] = useMutation(DELETE_PATIENT_MUTATION, {
+  //   onCompleted: () => {
+  //     toast.success('Patient deleted')
+  //   },
+  //   onError: (error) => {
+  //     toast.error(error.message)
+  //   },
+  //   // This refetches the query on the list page. Read more about other ways to
+  //   // update the cache over here:
+  //   // https://www.apollographql.com/docs/react/data/mutations/#making-all-other-cache-updates
+  //   refetchQueries: [{ query: QUERY }],
+  //   awaitRefetchQueries: true,
+  // })
 
-  const onDeleteClick = (id) => {
-    if (confirm('Are you sure you want to delete patient ' + id + '?')) {
-      deletePatient({ variables: { id } })
-    }
-  }
+  // const onDeleteClick = (id) => {
+  //   if (confirm('Are you sure you want to delete patient ' + id + '?')) {
+  //     deletePatient({ variables: { id } })
+  //   }
+  // }
 
   return (
-    <div className="rw-segment rw-table-wrapper-responsive">
-      <table className="rw-table">
+    <div className="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
+      <table className="w-full text-left table-auto min-w-max">
         <thead>
-          <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Patient info</th>
-            <th>Timezone</th>
-            <th>&nbsp;</th>
+          <tr className="border-b border-slate-300 bg-slate-200">
+            <th className="p-4 text-sm font-normal leading-none text-slate-700">
+              Name
+            </th>
+            <th className="p-4 text-sm font-normal leading-none text-slate-700">
+              Most recent activity
+            </th>
           </tr>
         </thead>
         <tbody>
           {patients.map((patient) => (
-            <tr key={patient.id}>
-              <td>{truncate(patient.id)}</td>
-              <td>{truncate(patient.name)}</td>
-              <td>{truncate(patient.patientInfo)}</td>
-              <td>{truncate(patient.timezone)}</td>
-              <td>
-                <nav className="rw-table-actions">
-                  {/* <Link
+            <tr key={patient.id} className="hover:bg-slate-50">
+              <td className="border-b border-slate-200">
+                <Link
+                  className="block p-4 py-5 focus:text-teal-600 hover:text-teal-600 transition-colors"
+                  to={routes.patient({ id: patient.id })}
+                  title={'Check up on ' + patient.name}
+                >
+                  {patient.name}
+                </Link>
+              </td>
+              <td className="p-4 border-b border-slate-200 py-5">
+                {/* Things to show here: last update, warnings */}
+                {/* <nav className="flex justify-end items-center pr-1 h-4">
+                  <Link
                     to={routes.patient({ id: patient.id })}
                     title={'Show patient ' + patient.id + ' detail'}
                     className="rw-button rw-button-small"
                   >
                     Show
-                  </Link> */}
-                  {/* <Link
+                  </Link>
+                  <Link
                     to={routes.editPatient({ id: patient.id })}
                     title={'Edit patient ' + patient.id}
                     className="rw-button rw-button-small rw-button-blue"
                   >
                     Edit
-                  </Link> */}
+                  </Link>
                   <button
                     type="button"
                     title={'Delete patient ' + patient.id}
@@ -77,7 +83,7 @@ const PatientsList = ({ patients }) => {
                   >
                     Delete
                   </button>
-                </nav>
+                </nav> */}
               </td>
             </tr>
           ))}

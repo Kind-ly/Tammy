@@ -15,8 +15,12 @@ const Routes = () => {
   return (
     <Router>
       <Route path="/" page={HomePage} name="home" />
+
+      {/* PATIENTS */}
       <Route path="/patients" page={PatientPatientsPage} name="patients" />
       <Route path="/patients/new" page={PatientNewPatientPage} name="newPatient" />
+      <Route path="/patients/{id:Int}" page={PatientPatientPage} name="patient" />
+      <Route path="/patients/{id:Int}/edit" page={PatientEditPatientPage} name="editPatient" />
 
       {/* <Set wrap={ScaffoldLayout} title="Actions" titleTo="actions" buttonLabel="New Action" buttonTo="newAction">
         <Route path="/actions/new" page={ActionNewActionPage} name="newAction" />
@@ -49,8 +53,7 @@ const Routes = () => {
         <Route path="/care-givers" page={CareGiverCareGiversPage} name="careGivers" />
       </Set>
       <Set wrap={ScaffoldLayout} title="Patients" titleTo="patients" buttonLabel="New Patient" buttonTo="newPatient">
-        <Route path="/patients/{id:Int}/edit" page={PatientEditPatientPage} name="editPatient" />
-        <Route path="/patients/{id:Int}" page={PatientPatientPage} name="patient" />
+
       </Set> */}
       <Route notfound page={NotFoundPage} />
     </Router>
