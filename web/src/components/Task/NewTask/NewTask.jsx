@@ -25,7 +25,8 @@ const NewTask = ({ patient }) => {
   })
 
   const onSave = (input) => {
-    createTask({ variables: { input } })
+    console.log(input)
+    // createTask({ variables: { input } })
   }
 
   return (

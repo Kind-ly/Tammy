@@ -17,12 +17,12 @@ import {
 
 const getDateToday = () => {
   const d = new Date()
-  return d.toLocaleDateString('en-SG', { month: 'short', day: '2-digit' })
+  return d.toLocaleDateString('en-SG', { month: 'short', day: 'numeric' })
 }
 
-const getDate2WeeksFromNow = () => {
+const getDateWithOffset = (offset) => {
   const d = new Date()
-  d.setDate(d.getDate() + 14)
+  d.setDate(d.getDate() + offset)
   return `${d.getFullYear()}-${('0' + (d.getMonth() + 1)).slice(-2)}-${('0' + d.getDate()).slice(-2)}`
 }
 
@@ -40,11 +40,35 @@ const getDayOfTheWeekToday = () => {
   return dayNames[d.getDay()]
 }
 
+const nth = (d) => {
+  const last = +String(d).slice(-2)
+  if (last > 3 && last < 21) return 'th'
+  const remainder = last % 10
+  if (remainder === 1) return 'st'
+  if (remainder === 2) return 'nd'
+  if (remainder === 3) return 'rd'
+  return 'th'
+}
+
 const TaskForm = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [repetition, setRepetition] = useState('no-repeat')
-  const [repeatEnd, setRepeatEnd] = useState('on')
+  const [customRepetitionDetails, setCustomRepetitionDetails] = useState({
+    repeatEvery: 1,
+    repeatEveryDuration: 'week',
+    repeatOnMondays: getDayOfTheWeekToday() === 'Monday',
+    repeatOnTuesdays: getDayOfTheWeekToday() === 'Tuesday',
+    repeatOnWednesdays: getDayOfTheWeekToday() === 'Wednesday',
+    repeatOnThursdays: getDayOfTheWeekToday() === 'Thursday',
+    repeatOnFridays: getDayOfTheWeekToday() === 'Friday',
+    repeatOnSaturdays: getDayOfTheWeekToday() === 'Saturday',
+    repeatOnSundays: getDayOfTheWeekToday() === 'Sunday',
+    repeatEnd: 'on',
+    repeatUntil: getDateWithOffset(14),
+    repeatAfter: 10,
+  })
   const { patient } = props
+
   const onSubmit = (data) => {
     props.onSave(data, props?.task?.id)
   }
@@ -134,6 +158,15 @@ const TaskForm = (props) => {
           errorClassName="mb-2 w-full rounded-md border py-3 px-6 text-base font-medium outline-none focus:border-red-400 focus:shadow-md bg-red-50 border-red-500 text-red-900"
           validation={{
             required: 'Please provide a start date for this action',
+            valueAsDate: true,
+            min: {
+              value: new Date(getDateWithOffset(0)),
+              message: 'The start date cannot be in the past',
+            },
+            max: {
+              value: new Date(getDateWithOffset(365)),
+              message: 'Please schedule within the next year',
+            },
           }}
         />
 
@@ -219,13 +252,25 @@ const TaskForm = (props) => {
                 min={1}
                 max={51}
                 step={1}
-                defaultValue={1}
+                defaultValue={customRepetitionDetails.repeatEvery}
                 className="bg-slate-200 rounded-lg py-3 px-2 text-sm font-semibold text-center ml-1"
+                onChange={(e) =>
+                  setCustomRepetitionDetails({
+                    ...customRepetitionDetails,
+                    repeatEvery: e.target.value,
+                  })
+                }
               />
               <SelectField
                 name="repeat-every-duration"
-                defaultValue="week"
+                defaultValue={customRepetitionDetails.repeatEveryDuration}
                 className="bg-slate-200 rounded-lg py-3 px-2 text-sm font-semibold text-center ml-1 appearance-none"
+                onChange={(e) =>
+                  setCustomRepetitionDetails({
+                    ...customRepetitionDetails,
+                    repeatEveryDuration: e.target.value,
+                  })
+                }
               >
                 <option value="day">day</option>
                 <option value="week">week</option>
@@ -233,44 +278,112 @@ const TaskForm = (props) => {
                 <option value="year">year</option>
               </SelectField>
             </div>
-            <div className="mb-4">
-              <p className="mb-2">Repeat on</p>
-              <CheckboxField
-                name="repeat-on-mondays"
-                defaultChecked={getDayOfTheWeekToday() === 'Monday'}
-                className="bg-slate-200 checked:bg-teal-500 text-slate-700 checked:text-white relative text-sm font-bold uppercase text-center w-8 h-8 rounded-full appearance-none cursor-pointer after:content-['M'] after:top-2/4 after:absolute after:left-2/4 after:transform after:-translate-x-1/2 after:-translate-y-1/2 mr-2"
-              />
-              <CheckboxField
-                name="repeat-on-tuesdays"
-                defaultChecked={getDayOfTheWeekToday() === 'Tuesday'}
-                className="bg-slate-200 checked:bg-teal-500 text-slate-700 checked:text-white relative text-sm font-bold uppercase text-center w-8 h-8 rounded-full appearance-none cursor-pointer after:content-['T'] after:top-2/4 after:absolute after:left-2/4 after:transform after:-translate-x-1/2 after:-translate-y-1/2 mr-2"
-              />
-              <CheckboxField
-                name="repeat-on-wednesdays"
-                defaultChecked={getDayOfTheWeekToday() === 'Wednesday'}
-                className="bg-slate-200 checked:bg-teal-500 text-slate-700 checked:text-white relative text-sm font-bold uppercase text-center w-8 h-8 rounded-full appearance-none cursor-pointer after:content-['W'] after:top-2/4 after:absolute after:left-2/4 after:transform after:-translate-x-1/2 after:-translate-y-1/2 mr-2"
-              />
-              <CheckboxField
-                name="repeat-on-thursdays"
-                defaultChecked={getDayOfTheWeekToday() === 'Thursday'}
-                className="bg-slate-200 checked:bg-teal-500 text-slate-700 checked:text-white relative text-sm font-bold uppercase text-center w-8 h-8 rounded-full appearance-none cursor-pointer after:content-['T'] after:top-2/4 after:absolute after:left-2/4 after:transform after:-translate-x-1/2 after:-translate-y-1/2 mr-2"
-              />
-              <CheckboxField
-                name="repeat-on-fridays"
-                defaultChecked={getDayOfTheWeekToday() === 'Friday'}
-                className="bg-slate-200 checked:bg-teal-500 text-slate-700 checked:text-white relative text-sm font-bold uppercase text-center w-8 h-8 rounded-full appearance-none cursor-pointer after:content-['F'] after:top-2/4 after:absolute after:left-2/4 after:transform after:-translate-x-1/2 after:-translate-y-1/2 mr-2"
-              />
-              <CheckboxField
-                name="repeat-on-saturdays"
-                defaultChecked={getDayOfTheWeekToday() === 'Saturday'}
-                className="bg-slate-200 checked:bg-teal-500 text-slate-700 checked:text-white relative text-sm font-bold uppercase text-center w-8 h-8 rounded-full appearance-none cursor-pointer after:content-['S'] after:top-2/4 after:absolute after:left-2/4 after:transform after:-translate-x-1/2 after:-translate-y-1/2 mr-2"
-              />
-              <CheckboxField
-                name="repeat-on-sundays"
-                defaultChecked={getDayOfTheWeekToday() === 'Sunday'}
-                className="bg-slate-200 checked:bg-teal-500 text-slate-700 checked:text-white relative text-sm font-bold uppercase text-center w-8 h-8 rounded-full appearance-none cursor-pointer after:content-['S'] after:top-2/4 after:absolute after:left-2/4 after:transform after:-translate-x-1/2 after:-translate-y-1/2 mr-2"
-              />
-            </div>
+            {customRepetitionDetails.repeatEveryDuration === 'week' && (
+              <div className="mb-4">
+                <p className="mb-2">Repeat on</p>
+                <CheckboxField
+                  name="repeat-on-mondays"
+                  defaultChecked={customRepetitionDetails.repeatOnMondays}
+                  className="bg-slate-200 checked:bg-teal-500 text-slate-700 checked:text-white relative text-sm font-bold uppercase text-center w-8 h-8 rounded-full appearance-none cursor-pointer after:content-['M'] after:top-2/4 after:absolute after:left-2/4 after:transform after:-translate-x-1/2 after:-translate-y-1/2 mr-2"
+                  onChange={(e) => {
+                    setCustomRepetitionDetails({
+                      ...customRepetitionDetails,
+                      repeatOnMondays: e.target.checked,
+                    })
+                  }}
+                />
+                <CheckboxField
+                  name="repeat-on-tuesdays"
+                  defaultChecked={customRepetitionDetails.repeatOnTuesdays}
+                  className="bg-slate-200 checked:bg-teal-500 text-slate-700 checked:text-white relative text-sm font-bold uppercase text-center w-8 h-8 rounded-full appearance-none cursor-pointer after:content-['T'] after:top-2/4 after:absolute after:left-2/4 after:transform after:-translate-x-1/2 after:-translate-y-1/2 mr-2"
+                  onChange={(e) => {
+                    setCustomRepetitionDetails({
+                      ...customRepetitionDetails,
+                      repeatOnTuesdays: e.target.checked,
+                    })
+                  }}
+                />
+                <CheckboxField
+                  name="repeat-on-wednesdays"
+                  defaultChecked={customRepetitionDetails.repeatOnWednesdays}
+                  className="bg-slate-200 checked:bg-teal-500 text-slate-700 checked:text-white relative text-sm font-bold uppercase text-center w-8 h-8 rounded-full appearance-none cursor-pointer after:content-['W'] after:top-2/4 after:absolute after:left-2/4 after:transform after:-translate-x-1/2 after:-translate-y-1/2 mr-2"
+                  onChange={(e) => {
+                    setCustomRepetitionDetails({
+                      ...customRepetitionDetails,
+                      repeatOnWednesdays: e.target.checked,
+                    })
+                  }}
+                />
+                <CheckboxField
+                  name="repeat-on-thursdays"
+                  defaultChecked={customRepetitionDetails.repeatOnThursdays}
+                  className="bg-slate-200 checked:bg-teal-500 text-slate-700 checked:text-white relative text-sm font-bold uppercase text-center w-8 h-8 rounded-full appearance-none cursor-pointer after:content-['T'] after:top-2/4 after:absolute after:left-2/4 after:transform after:-translate-x-1/2 after:-translate-y-1/2 mr-2"
+                  onChange={(e) => {
+                    setCustomRepetitionDetails({
+                      ...customRepetitionDetails,
+                      repeatOnThursdays: e.target.checked,
+                    })
+                  }}
+                />
+                <CheckboxField
+                  name="repeat-on-fridays"
+                  defaultChecked={customRepetitionDetails.repeatOnFridays}
+                  className="bg-slate-200 checked:bg-teal-500 text-slate-700 checked:text-white relative text-sm font-bold uppercase text-center w-8 h-8 rounded-full appearance-none cursor-pointer after:content-['F'] after:top-2/4 after:absolute after:left-2/4 after:transform after:-translate-x-1/2 after:-translate-y-1/2 mr-2"
+                  onChange={(e) => {
+                    setCustomRepetitionDetails({
+                      ...customRepetitionDetails,
+                      repeatOnFridays: e.target.checked,
+                    })
+                  }}
+                />
+                <CheckboxField
+                  name="repeat-on-saturdays"
+                  defaultChecked={customRepetitionDetails.repeatOnSaturdays}
+                  className="bg-slate-200 checked:bg-teal-500 text-slate-700 checked:text-white relative text-sm font-bold uppercase text-center w-8 h-8 rounded-full appearance-none cursor-pointer after:content-['S'] after:top-2/4 after:absolute after:left-2/4 after:transform after:-translate-x-1/2 after:-translate-y-1/2 mr-2"
+                  onChange={(e) => {
+                    setCustomRepetitionDetails({
+                      ...customRepetitionDetails,
+                      repeatOnSaturdays: e.target.checked,
+                    })
+                  }}
+                />
+                <CheckboxField
+                  name="repeat-on-sundays"
+                  defaultChecked={customRepetitionDetails.repeatOnSundays}
+                  className="bg-slate-200 checked:bg-teal-500 text-slate-700 checked:text-white relative text-sm font-bold uppercase text-center w-8 h-8 rounded-full appearance-none cursor-pointer after:content-['S'] after:top-2/4 after:absolute after:left-2/4 after:transform after:-translate-x-1/2 after:-translate-y-1/2 mr-2"
+                  onChange={(e) => {
+                    setCustomRepetitionDetails({
+                      ...customRepetitionDetails,
+                      repeatOnSundays: e.target.checked,
+                    })
+                  }}
+                />
+              </div>
+            )}
+            {customRepetitionDetails.repeatEveryDuration === 'month' && (
+              <div className="mb-4">
+                {/* otherwise show select with monthly on day [date] */}
+                <SelectField
+                  name="repeat-monthly"
+                  defaultValue={customRepetitionDetails.repeatMonthly}
+                  className="bg-slate-200 rounded-lg py-3 px-2 text-sm font-semibold text-center ml-1 appearance-none"
+                  onChange={(e) =>
+                    setCustomRepetitionDetails({
+                      ...customRepetitionDetails,
+                      repeatMonthly: e.target.value,
+                    })
+                  }
+                >
+                  <option value="day">
+                    Monthly on the {new Date().getDate()}
+                    {nth(getDateWithOffset(0))}
+                  </option>
+                  <option value="week">
+                    Monthly on the first {getDayOfTheWeekToday()}
+                  </option>
+                </SelectField>
+              </div>
+            )}
             <div className="mb-4">
               <p className="mb-4">Ends</p>
               <div className="mb-3 flex flex-row items-center">
@@ -279,9 +392,12 @@ const TaskForm = (props) => {
                   id="on"
                   value="on"
                   className="w-5 h-5 accent-teal-500 cursor-pointer"
-                  defaultChecked={repeatEnd === 'on'}
-                  onChange={() => {
-                    setRepeatEnd('on')
+                  defaultChecked={customRepetitionDetails.repeatEnd === 'on'}
+                  onChange={(e) => {
+                    setCustomRepetitionDetails({
+                      ...customRepetitionDetails,
+                      repeatEnd: e.target.value,
+                    })
                   }}
                 />
                 <Label
@@ -293,10 +409,31 @@ const TaskForm = (props) => {
                 </Label>
                 <DateField
                   name="repeat-until"
-                  defaultValue={getDate2WeeksFromNow()}
+                  defaultValue={customRepetitionDetails.repeatUntil}
                   className="ml-4 bg-slate-200 rounded-lg py-3 px-2 text-sm font-semibold text-center ml-1 appearance-none cursor-pointer disabled:cursor-default disabled:text-slate-500 disabled:bg-slate-100"
                   errorClassName="ml-4 bg-red-200 rounded-lg py-3 px-2 text-sm font-semibold text-center ml-1 appearance-none cursor-pointer disabled:cursor-default disabled:text-slate-500 disabled:bg-slate-100"
-                  disabled={repeatEnd !== 'on'}
+                  disabled={customRepetitionDetails.repeatEnd !== 'on'}
+                  min={getDateWithOffset(1)}
+                  max={getDateWithOffset(365)}
+                  onChange={(e) => {
+                    setCustomRepetitionDetails({
+                      ...customRepetitionDetails,
+                      repeatUntil: e.target.value,
+                    })
+                  }}
+                  validation={{
+                    required: 'Please provide an end date for this action',
+                    valueAsDate: true,
+                    min: {
+                      value: new Date(getDateWithOffset(1)),
+                      message:
+                        'The end date should be no earlier than tomorrow',
+                    },
+                    max: {
+                      value: new Date(getDateWithOffset(365)),
+                      message: 'Please schedule within the next year',
+                    },
+                  }}
                 />
               </div>
               <div className="mb-3 flex flex-row items-center">
@@ -305,9 +442,12 @@ const TaskForm = (props) => {
                   id="after"
                   value="after"
                   className="w-5 h-5 accent-teal-500 cursor-pointer"
-                  defaultChecked={repeatEnd === 'after'}
-                  onChange={() => {
-                    setRepeatEnd('after')
+                  defaultChecked={customRepetitionDetails.repeatEnd === 'after'}
+                  onChange={(e) => {
+                    setCustomRepetitionDetails({
+                      ...customRepetitionDetails,
+                      repeatEnd: e.target.value,
+                    })
                   }}
                 />
                 <Label
@@ -322,9 +462,15 @@ const TaskForm = (props) => {
                   min={1}
                   max={51}
                   step={1}
-                  defaultValue={10}
+                  defaultValue={customRepetitionDetails.repeatAfter}
                   className="ml-4 mr-2 bg-slate-200 rounded-lg py-3 px-2 text-sm font-semibold text-center ml-1 appearance-none cursor-pointer disabled:cursor-default disabled:text-slate-500 disabled:bg-slate-100"
-                  disabled={repeatEnd !== 'after'}
+                  disabled={customRepetitionDetails.repeatEnd !== 'after'}
+                  onChange={(e) => {
+                    setCustomRepetitionDetails({
+                      ...customRepetitionDetails,
+                      repeatAfter: e.target.value,
+                    })
+                  }}
                 />
                 <span>occurrences</span>
               </div>
