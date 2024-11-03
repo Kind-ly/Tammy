@@ -3,15 +3,20 @@ import {
   FormError,
   FieldError,
   Label,
+  SelectField,
   TextField,
   TextAreaField,
   Submit,
 } from '@redwoodjs/forms'
 
+import timezones from './timezones'
+
 const PatientForm = (props) => {
   const onSubmit = (data) => {
     props.onSave(data, props?.patient?.id)
   }
+
+  // const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
 
   return (
     <Form onSubmit={onSubmit} error={props.error}>
@@ -76,9 +81,7 @@ const PatientForm = (props) => {
         </p>
       </Label>
 
-      <FieldError name="timezone" className="text-red-700 mb-2 text-sm block" />
-
-      <TextField
+      <SelectField
         name="timezone"
         defaultValue={props.patient?.timezone}
         className="mb-6 w-full rounded-md border border-slate-200 bg-white py-3 px-6 text-base font-medium text-black outline-none focus:border-teal-300 focus:shadow-md"
@@ -86,7 +89,15 @@ const PatientForm = (props) => {
         validation={{
           required: "Please provide the patient's general location",
         }}
-      />
+      >
+        {timezones.map((timezone, index) => (
+          <option key={index} value={timezone}>
+            {timezone}
+          </option>
+        ))}
+      </SelectField>
+
+      <FieldError name="timezone" className="text-red-700 mb-2 text-sm block" />
 
       <Submit
         disabled={props.loading}

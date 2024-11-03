@@ -36,9 +36,9 @@ export const Success = ({ patient }) => {
   const [updatePatient, { loading, error }] = useMutation(
     UPDATE_PATIENT_MUTATION,
     {
-      onCompleted: () => {
+      onCompleted: (result) => {
         toast.success('Patient updated')
-        navigate(routes.patients())
+        navigate(routes.patient({ id: result.updatePatient.id }))
       },
       onError: (error) => {
         toast.error(error.message)

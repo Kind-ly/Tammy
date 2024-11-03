@@ -16,9 +16,9 @@ const NewPatient = () => {
   const [createPatient, { loading, error }] = useMutation(
     CREATE_PATIENT_MUTATION,
     {
-      onCompleted: () => {
+      onCompleted: (result) => {
         toast.success('Patient created')
-        navigate(routes.patients())
+        navigate(routes.patient({ id: result.createPatient.id }))
       },
       onError: (error) => {
         toast.error(error.message)
