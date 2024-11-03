@@ -11,6 +11,7 @@ export const schema = gql`
   }
 
   input CreateDeviceInput {
+    id: Int!
     careGiverId: String!
   }
 

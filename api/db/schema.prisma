@@ -13,7 +13,7 @@ generator client {
 }
 
 model Device {
-  id          Int             @id @default(autoincrement())
+  id          Int             @id
   CareGiver   CareGiver       @relation(fields: [careGiverId], references: [id])
   careGiverId String          @unique
 }
