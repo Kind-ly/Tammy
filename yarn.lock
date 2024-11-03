@@ -4361,6 +4361,35 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@redwoodjs/auth-netlify-api@npm:8.1.1":
+  version: 8.1.1
+  resolution: "@redwoodjs/auth-netlify-api@npm:8.1.1"
+  dependencies:
+    jsonwebtoken: "npm:9.0.2"
+  checksum: 10c0/00a8a08a3720a0ce726e3691acbda4e3a1e4d13e8c24d3b9ca317b906494504cbc9d439d9afc5543e19c6ab1df5600f19d7ea31590244701c7c2005830de811f
+  languageName: node
+  linkType: hard
+
+"@redwoodjs/auth-netlify-setup@npm:8.1.1":
+  version: 8.1.1
+  resolution: "@redwoodjs/auth-netlify-setup@npm:8.1.1"
+  dependencies:
+    "@redwoodjs/cli-helpers": "npm:8.1.1"
+  checksum: 10c0/6725e3b07a5fbab7457a550c66ac13a25de48fc5277786d879539ba63d8c4a546dfe57d03ddfa757d100584f0472e7b2ae7790e55dc32273e51074d2c9a763c6
+  languageName: node
+  linkType: hard
+
+"@redwoodjs/auth-netlify-web@npm:8.1.1":
+  version: 8.1.1
+  resolution: "@redwoodjs/auth-netlify-web@npm:8.1.1"
+  dependencies:
+    "@redwoodjs/auth": "npm:8.1.1"
+  peerDependencies:
+    netlify-identity-widget: 1.9.2
+  checksum: 10c0/ef4b21370ebdcdbce7493e4b125a1070e080034d381b3074eb43c2085f31f048b27f721c6c653f18c4d5efbc997df410c25b64b0f71d1a6393b7ec8ce7352246
+  languageName: node
+  linkType: hard
+
 "@redwoodjs/auth@npm:8.1.1":
   version: 8.1.1
   resolution: "@redwoodjs/auth@npm:8.1.1"
@@ -6384,6 +6413,7 @@ __metadata:
   resolution: "api@workspace:api"
   dependencies:
     "@redwoodjs/api": "npm:8.1.1"
+    "@redwoodjs/auth-netlify-api": "npm:8.1.1"
     "@redwoodjs/graphql-server": "npm:8.1.1"
   languageName: unknown
   linkType: soft
@@ -13454,6 +13484,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"netlify-identity-widget@npm:^1":
+  version: 1.9.2
+  resolution: "netlify-identity-widget@npm:1.9.2"
+  checksum: 10c0/fcdc960f3228cdb4c1e6a1c98ca92f570d00d7914d9579712a16ef7ec72fe6d4396fbe07b24e9f9ca2fc12fd724d3193a40d97ed99c7690f209f329ae591af24
+  languageName: node
+  linkType: hard
+
 "no-case@npm:^3.0.4":
   version: 3.0.4
   resolution: "no-case@npm:3.0.4"
@@ -15549,6 +15586,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
+    "@redwoodjs/auth-netlify-setup": "npm:8.1.1"
     "@redwoodjs/cli-data-migrate": "npm:8.1.1"
     "@redwoodjs/core": "npm:8.1.1"
     "@redwoodjs/project-config": "npm:8.1.1"
@@ -17528,6 +17566,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "web@workspace:web"
   dependencies:
+    "@redwoodjs/auth-netlify-web": "npm:8.1.1"
     "@redwoodjs/forms": "npm:8.1.1"
     "@redwoodjs/router": "npm:8.1.1"
     "@redwoodjs/vite": "npm:8.1.1"
@@ -17536,6 +17575,7 @@ __metadata:
     "@types/react-dom": "npm:^18.2.19"
     autoprefixer: "npm:^10.4.20"
     humanize-string: "npm:2.1.0"
+    netlify-identity-widget: "npm:^1"
     postcss: "npm:^8.4.47"
     postcss-loader: "npm:^8.1.1"
     react: "npm:18.3.1"
