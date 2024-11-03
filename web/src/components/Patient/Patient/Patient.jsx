@@ -75,12 +75,12 @@ const Patient = ({ patient }) => {
 
       <div className="flex flex-col-reverse md:flex-row w-full">
         <div className="flex-1 md:mr-6">
-          <div className="w-full text-gray-800 bg-white shadow-md rounded-lg bg-clip-border p-4 mb-4">
+          <div className="w-full text-gray-800 bg-white shadow-md rounded-lg bg-clip-border mb-4 pb-2">
             <TasksCell patientId={patient.id} />
           </div>
-          <div className="w-full text-gray-800 bg-white shadow-md rounded-lg bg-clip-border p-4">
+          {/* <div className="w-full text-gray-800 bg-white shadow-md rounded-lg bg-clip-border p-4">
             patient&apos;s conversation log
-          </div>
+          </div> */}
         </div>
         <div className="md:flex-none md:w-1/3 mb-6 md:mb-0">
           <div className="w-full text-gray-800 bg-white shadow-md rounded-lg bg-clip-border p-4">

@@ -53,10 +53,12 @@ const TaskForm = (props) => {
 
   const onSubmit = (data) => {
     const taskFormData = {
+      patientId: patient.id,
       description: data.description,
       instructions: data.instructions,
       date: data.date,
       time: data.time,
+      parentTask: '',
       // repetition,
       // repetitionCycles,
       // repetitionPeriod,
@@ -193,7 +195,9 @@ const TaskForm = (props) => {
 
           <DateField
             name="date"
-            defaultValue={props.task?.date}
+            defaultValue={
+              new Date(props.task?.date).toISOString().split('T')[0]
+            }
             className="mb-2 w-full rounded-md border border-slate-200 bg-white py-3 px-6 text-base font-medium text-black outline-none focus:border-teal-300 focus:shadow-md"
             errorClassName="mb-2 w-full rounded-md border py-3 px-6 text-base font-medium outline-none focus:border-red-400 focus:shadow-md bg-red-50 border-red-500 text-red-900"
             validation={{

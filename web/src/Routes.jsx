@@ -22,6 +22,7 @@ const Routes = () => {
       <Route path="/patients/{id:String}" page={PatientPatientPage} name="patient" />
       <Route path="/patients/{id:String}/edit" page={PatientEditPatientPage} name="editPatient" />
       <Route path="/patients/{id:String}/tasks/new" page={TaskNewTaskPage} name="newTask" />
+      <Route path="/patients/{patientId:String}/tasks/{taskId:String}/edit" page={TaskEditTaskPage} name="editTask" />
 
       {/* <Set wrap={ScaffoldLayout} title="Actions" titleTo="actions" buttonLabel="New Action" buttonTo="newAction">
         <Route path="/actions/new" page={ActionNewActionPage} name="newAction" />

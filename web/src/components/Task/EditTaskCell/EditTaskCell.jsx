@@ -1,18 +1,23 @@
 import { navigate, routes } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
+import { Metadata } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import TaskForm from 'src/components/Task/TaskForm'
 
 export const QUERY = gql`
-  query EditTaskById($id: String!) {
-    task: task(id: $id) {
+  query EditTaskById($patientId: String!, $taskId: String!) {
+    task: task(id: $taskId) {
       id
       date
       time
       description
       instructions
       patientId
+    }
+    patient: patient(id: $patientId) {
+      id
+      name
     }
   }
 `
@@ -36,11 +41,11 @@ export const Failure = ({ error }) => (
   <div className="text-red-400">{error?.message}</div>
 )
 
-export const Success = ({ task }) => {
+export const Success = ({ patient, task }) => {
   const [updateTask, { loading, error }] = useMutation(UPDATE_TASK_MUTATION, {
     onCompleted: () => {
       toast.success('Task updated')
-      navigate(routes.tasks())
+      navigate(routes.patient({ id: patient.id }))
     },
     onError: (error) => {
       toast.error(error.message)
@@ -52,15 +57,19 @@ export const Success = ({ task }) => {
   }
 
   return (
-    <div className="rw-segment">
-      <header className="rw-segment-header">
-        <h2 className="rw-heading rw-heading-secondary">
-          Edit Task {task?.id}
-        </h2>
-      </header>
-      <div className="rw-segment-main">
-        <TaskForm task={task} onSave={onSave} error={error} loading={loading} />
-      </div>
-    </div>
+    <>
+      <Metadata
+        title={'Edit task for ' + patient.name}
+        description={'Edit task for ' + patient.name}
+      />
+
+      <TaskForm
+        patient={patient}
+        task={task}
+        onSave={onSave}
+        error={error}
+        loading={loading}
+      />
+    </>
   )
 }

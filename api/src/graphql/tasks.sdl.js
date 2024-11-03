@@ -39,6 +39,7 @@ export const schema = gql`
     time: String
     description: String
     instructions: String
+    parentTask: String
     status: TaskStatus
     timeCompleted: String
     patientId: String

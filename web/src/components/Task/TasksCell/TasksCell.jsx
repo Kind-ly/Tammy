@@ -2,6 +2,13 @@ import { Link, routes } from '@redwoodjs/router'
 
 import Tasks from 'src/components/Task/Tasks'
 
+// export const beforeQuery = (props) => {
+//   return {
+//     variables: props,
+//     fetchPolicy: 'no-cache',
+//   }
+// }
+
 export const QUERY = gql`
   query GetPatientSchedule($patientId: String!) {
     tasks: tasksForPatient(id: $patientId) {
@@ -50,6 +57,8 @@ export const Failure = ({ error }) => (
   <div className="text-red-400">{error?.message}</div>
 )
 
-export const Success = ({ tasks }) => {
-  return <Tasks tasks={tasks} />
+export const Success = ({ patientId, tasks, queryResult }) => {
+  return (
+    <Tasks tasks={tasks} patientId={patientId} refetch={queryResult.refetch} />
+  )
 }

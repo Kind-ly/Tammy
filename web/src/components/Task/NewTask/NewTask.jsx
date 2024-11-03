@@ -9,15 +9,16 @@ const CREATE_TASK_MUTATION = gql`
   mutation CreateTaskMutation($input: CreateTaskInput!) {
     createTask(input: $input) {
       id
+      patientId
     }
   }
 `
 
 const NewTask = ({ patient }) => {
   const [createTask, { loading, error }] = useMutation(CREATE_TASK_MUTATION, {
-    onCompleted: () => {
+    onCompleted: (result) => {
       toast.success('Task created')
-      navigate(routes.tasks())
+      navigate(routes.patient({ id: result.createTask.patientId }))
     },
     onError: (error) => {
       toast.error(error.message)
