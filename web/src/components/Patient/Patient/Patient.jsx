@@ -130,43 +130,6 @@ const Patient = ({ patient }) => {
             </nav>
           </div>
         </div>
-        {/* <div className="rw-segment">
-        <header className="rw-segment-header">
-          <h2 className="rw-heading rw-heading-secondary">
-            Patient {patient.id} Detail
-          </h2>
-        </header>
-        <table className="rw-table">
-          <tbody>
-            <tr>
-              <th>Id</th>
-              <td>{patient.id}</td>
-            </tr>
-            <tr>
-              <th>Name</th>
-              <td>{patient.name}</td>
-            </tr>
-            <tr>
-              <th>Patient info</th>
-              <td>{patient.patientInfo}</td>
-            </tr>
-            <tr>
-              <th>Timezone</th>
-              <td>{patient.timezone}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <nav className="rw-button-group">
-
-        <button
-          type="button"
-          className="rw-button rw-button-red"
-          onClick={() => onDeleteClick(patient.id)}
-        >
-          Delete
-        </button>
-      </nav> */}
       </div>
     </>
   )

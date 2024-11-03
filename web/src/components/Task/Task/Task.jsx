@@ -105,56 +105,6 @@ const Task = ({ patientId, task, refetch }) => {
           </svg>
         </button>
       </td>
-      {/* <div className="rw-segment">
-        <header className="rw-segment-header">
-          <h2 className="rw-heading rw-heading-secondary">
-            Task {task.id} Detail
-          </h2>
-        </header>
-        <table className="rw-table">
-          <tbody>
-            <tr>
-              <th>Id</th>
-              <td>{task.id}</td>
-            </tr>
-            <tr>
-              <th>Date</th>
-              <td>{task.date}</td>
-            </tr>
-            <tr>
-              <th>Time</th>
-              <td>{task.time}</td>
-            </tr>
-            <tr>
-              <th>Description</th>
-              <td>{task.description}</td>
-            </tr>
-            <tr>
-              <th>Instructions</th>
-              <td>{task.instructions}</td>
-            </tr>
-            <tr>
-              <th>Patient id</th>
-              <td>{task.patientId}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <nav className="rw-button-group">
-        <Link
-          to={routes.editTask({ id: task.id })}
-          className="rw-button rw-button-blue"
-        >
-          Edit
-        </Link>
-        <button
-          type="button"
-          className="rw-button rw-button-red"
-          onClick={() => onDeleteClick(task.id)}
-        >
-          Delete
-        </button>
-      </nav> */}
     </tr>
   )
 }

@@ -60,30 +60,6 @@ const PatientsList = ({ patients }) => {
               </td>
               <td className="p-4 border-b border-slate-200 py-5">
                 {/* Things to show here: last update, warnings */}
-                {/* <nav className="flex justify-end items-center pr-1 h-4">
-                  <Link
-                    to={routes.patient({ id: patient.id })}
-                    title={'Show patient ' + patient.id + ' detail'}
-                    className="rw-button rw-button-small"
-                  >
-                    Show
-                  </Link>
-                  <Link
-                    to={routes.editPatient({ id: patient.id })}
-                    title={'Edit patient ' + patient.id}
-                    className="rw-button rw-button-small rw-button-blue"
-                  >
-                    Edit
-                  </Link>
-                  <button
-                    type="button"
-                    title={'Delete patient ' + patient.id}
-                    className="rw-button rw-button-small rw-button-red"
-                    onClick={() => onDeleteClick(patient.id)}
-                  >
-                    Delete
-                  </button>
-                </nav> */}
               </td>
             </tr>
           ))}

@@ -19,9 +19,6 @@ export const Empty = () => {
   return (
     <div>
       <p className="mb-4">No patients set up yet</p>
-      {/* <Link to={routes.newPatient()} className="rw-link">
-        {'Create one?'}
-      </Link> */}
       <button
         className="flex flex-row text-white bg-teal-500 items-center w-full px-4 py-2 mt-2 text-lg font-semibold rounded-lg md:w-auto md:inline md:mt-0 hover:text-white focus:text-white hover:bg-teal-400 focus:bg-teal-400 focus:outline-none focus:shadow-outline transition-colors"
         onClick={() => navigate(routes.newPatient())}
