@@ -5,7 +5,7 @@ import { Link, routes } from '@redwoodjs/router'
 // import { QUERY } from 'src/components/Patient/PatientsCell'
 
 // const DELETE_PATIENT_MUTATION = gql`
-//   mutation DeletePatientMutation($id: Int!) {
+//   mutation DeletePatientMutation($id: String!) {
 //     deletePatient(id: $id) {
 //       id
 //     }

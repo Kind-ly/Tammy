@@ -1,7 +1,7 @@
 import CareGiver from 'src/components/CareGiver/CareGiver'
 
 export const QUERY = gql`
-  query FindCareGiverById($id: Int!) {
+  query FindCareGiverById($id: String!) {
     careGiver: careGiver(id: $id) {
       id
       email

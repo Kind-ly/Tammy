@@ -52,7 +52,4 @@ export const Task = {
   patient: (_obj, { root }) => {
     return db.task.findUnique({ where: { id: root?.id } }).patient()
   },
-  reminder: (_obj, { root }) => {
-    return db.task.findUnique({ where: { id: root?.id } }).reminder()
-  },
 }

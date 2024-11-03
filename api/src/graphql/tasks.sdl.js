@@ -6,23 +6,23 @@ export const schema = gql`
   }
 
   type Task {
-    id: Int!
+    id: String!
     date: String!
     time: String!
     description: String!
     instructions: String
     status: TaskStatus
     timeCompleted: String
+    parentTask: String
     patient: Patient!
-    patientId: Int!
-    reminder: Reminder
+    patientId: String!
   }
 
   type Query {
     tasks: [Task!]! @requireAuth
-    task(id: Int!): Task @requireAuth
-    tasksForPatient(id: Int!): [Task!] @skipAuth
-    tasksForPatientOnDate(id: Int!, date: String!): [Task!] @skipAuth
+    task(id: String!): Task @requireAuth
+    tasksForPatient(id: String!): [Task!] @skipAuth
+    tasksForPatientOnDate(id: String!, date: String!): [Task!] @skipAuth
   }
 
   input CreateTaskInput {
@@ -30,7 +30,8 @@ export const schema = gql`
     time: String!
     description: String!
     instructions: String
-    patientId: Int!
+    parentTask: String
+    patientId: String!
   }
 
   input UpdateTaskInput {
@@ -40,12 +41,12 @@ export const schema = gql`
     instructions: String
     status: TaskStatus
     timeCompleted: String
-    patientId: Int
+    patientId: String
   }
 
   type Mutation {
     createTask(input: CreateTaskInput!): Task! @requireAuth
-    updateTask(id: Int!, input: UpdateTaskInput!): Task! @requireAuth
-    deleteTask(id: Int!): Task! @requireAuth
+    updateTask(id: String!, input: UpdateTaskInput!): Task! @requireAuth
+    deleteTask(id: String!): Task! @requireAuth
   }
 `

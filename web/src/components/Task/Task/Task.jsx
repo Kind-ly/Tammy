@@ -1,12 +1,11 @@
 import { Link, routes, navigate } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
-
 import { toast } from '@redwoodjs/web/toast'
 
 import 'src/lib/formatters'
 
 const DELETE_TASK_MUTATION = gql`
-  mutation DeleteTaskMutation($id: Int!) {
+  mutation DeleteTaskMutation($id: String!) {
     deleteTask(id: $id) {
       id
     }

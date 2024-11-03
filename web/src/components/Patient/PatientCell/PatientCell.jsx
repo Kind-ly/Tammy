@@ -1,7 +1,7 @@
 import Patient from 'src/components/Patient/Patient'
 
 export const QUERY = gql`
-  query FindPatientById($id: Int!) {
+  query FindPatientById($id: String!) {
     patient: patient(id: $id) {
       id
       name

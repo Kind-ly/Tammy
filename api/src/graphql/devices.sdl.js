@@ -2,7 +2,7 @@ export const schema = gql`
   type Device {
     id: Int!
     CareGiver: CareGiver!
-    careGiverId: Int!
+    careGiverId: String!
   }
 
   type Query {
@@ -11,11 +11,11 @@ export const schema = gql`
   }
 
   input CreateDeviceInput {
-    careGiverId: Int!
+    careGiverId: String!
   }
 
   input UpdateDeviceInput {
-    careGiverId: Int
+    careGiverId: String
   }
 
   type Mutation {

@@ -39,7 +39,4 @@ export const Patient = {
   actions: (_obj, { root }) => {
     return db.patient.findUnique({ where: { id: root?.id } }).actions()
   },
-  reminders: (_obj, { root }) => {
-    return db.patient.findUnique({ where: { id: root?.id } }).reminders()
-  },
 }

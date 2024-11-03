@@ -5,7 +5,7 @@ import { toast } from '@redwoodjs/web/toast'
 import PatientForm from 'src/components/Patient/PatientForm'
 
 export const QUERY = gql`
-  query EditPatientById($id: Int!) {
+  query EditPatientById($id: String!) {
     patient: patient(id: $id) {
       id
       name
@@ -16,7 +16,7 @@ export const QUERY = gql`
 `
 
 const UPDATE_PATIENT_MUTATION = gql`
-  mutation UpdatePatientMutation($id: Int!, $input: UpdatePatientInput!) {
+  mutation UpdatePatientMutation($id: String!, $input: UpdatePatientInput!) {
     updatePatient(id: $id, input: $input) {
       id
       name

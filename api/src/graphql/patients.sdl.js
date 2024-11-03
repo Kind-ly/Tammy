@@ -1,17 +1,16 @@
 export const schema = gql`
   type Patient {
-    id: Int!
+    id: String!
     name: String!
     patientInfo: String
     timezone: String!
     careGivers: [CareGiver]!
     tasks: [Task]!
-    reminders: [Reminder]!
   }
 
   type Query {
     patients: [Patient!]! @requireAuth
-    patient(id: Int!): Patient @requireAuth
+    patient(id: String!): Patient @requireAuth
   }
 
   input CreatePatientInput {
@@ -28,7 +27,8 @@ export const schema = gql`
 
   type Mutation {
     createPatient(input: CreatePatientInput!): Patient! @requireAuth
-    updatePatient(id: Int!, input: UpdatePatientInput!): Patient! @requireAuth
-    deletePatient(id: Int!): Patient! @requireAuth
+    updatePatient(id: String!, input: UpdatePatientInput!): Patient!
+      @requireAuth
+    deletePatient(id: String!): Patient! @requireAuth
   }
 `

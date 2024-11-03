@@ -1,12 +1,11 @@
 import { Link, routes, navigate } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
-
 import { toast } from '@redwoodjs/web/toast'
 
 import 'src/lib/formatters'
 
 const DELETE_CARE_GIVER_MUTATION = gql`
-  mutation DeleteCareGiverMutation($id: Int!) {
+  mutation DeleteCareGiverMutation($id: String!) {
     deleteCareGiver(id: $id) {
       id
     }

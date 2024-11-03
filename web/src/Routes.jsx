@@ -19,21 +19,15 @@ const Routes = () => {
       {/* PATIENTS */}
       <Route path="/patients" page={PatientPatientsPage} name="patients" />
       <Route path="/patients/new" page={PatientNewPatientPage} name="newPatient" />
-      <Route path="/patients/{id:Int}" page={PatientPatientPage} name="patient" />
-      <Route path="/patients/{id:Int}/edit" page={PatientEditPatientPage} name="editPatient" />
-      <Route path="/patients/{id:Int}/tasks/new" page={TaskNewTaskPage} name="newTask" />
+      <Route path="/patients/{id:String}" page={PatientPatientPage} name="patient" />
+      <Route path="/patients/{id:String}/edit" page={PatientEditPatientPage} name="editPatient" />
+      <Route path="/patients/{id:String}/tasks/new" page={TaskNewTaskPage} name="newTask" />
 
       {/* <Set wrap={ScaffoldLayout} title="Actions" titleTo="actions" buttonLabel="New Action" buttonTo="newAction">
         <Route path="/actions/new" page={ActionNewActionPage} name="newAction" />
         <Route path="/actions/{id:Int}/edit" page={ActionEditActionPage} name="editAction" />
         <Route path="/actions/{id:Int}" page={ActionActionPage} name="action" />
         <Route path="/actions" page={ActionActionsPage} name="actions" />
-      </Set>
-      <Set wrap={ScaffoldLayout} title="Reminders" titleTo="reminders" buttonLabel="New Reminder" buttonTo="newReminder">
-        <Route path="/reminders/new" page={ReminderNewReminderPage} name="newReminder" />
-        <Route path="/reminders/{id:Int}/edit" page={ReminderEditReminderPage} name="editReminder" />
-        <Route path="/reminders/{id:Int}" page={ReminderReminderPage} name="reminder" />
-        <Route path="/reminders" page={ReminderRemindersPage} name="reminders" />
       </Set>
       <Set wrap={ScaffoldLayout} title="Tasks" titleTo="tasks" buttonLabel="New Task" buttonTo="newTask">
         <Route path="/tasks/{id:Int}/edit" page={TaskEditTaskPage} name="editTask" />

@@ -3,7 +3,7 @@ import { Link, routes } from '@redwoodjs/router'
 import Tasks from 'src/components/Task/Tasks'
 
 export const QUERY = gql`
-  query GetPatientSchedule($patientId: Int!) {
+  query GetPatientSchedule($patientId: String!) {
     tasks: tasksForPatient(id: $patientId) {
       id
       date

@@ -1,7 +1,7 @@
 import NewTask from 'src/components/Task/NewTask/NewTask'
 
 export const QUERY = gql`
-  query GetPatient($patientId: Int!) {
+  query GetPatient($patientId: String!) {
     patient: patient(id: $patientId) {
       id
       name

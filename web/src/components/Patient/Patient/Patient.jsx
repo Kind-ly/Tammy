@@ -6,7 +6,7 @@ import { toast } from '@redwoodjs/web/toast'
 import TasksCell from 'src/components/Task/TasksCell/TasksCell'
 
 const DELETE_PATIENT_MUTATION = gql`
-  mutation DeletePatientMutation($id: Int!) {
+  mutation DeletePatientMutation($id: String!) {
     deletePatient(id: $id) {
       id
     }
