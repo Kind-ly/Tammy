@@ -1,3 +1,11 @@
+export const getReadableDate = (date) => {
+  return date.toLocaleDateString('en-SG', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  })
+}
+
 export const getReadableDateToday = () => {
   const d = new Date()
   return d.toLocaleDateString('en-SG', { month: 'short', day: 'numeric' })
@@ -31,4 +39,12 @@ export const getEnumerationForDate = (d) => {
   if (remainder === 2) return 'nd'
   if (remainder === 3) return 'rd'
   return 'th'
+}
+
+export const isSameDay = (d1, d2) => {
+  return (
+    d1.getFullYear() === d2.getFullYear() &&
+    d1.getMonth() === d2.getMonth() &&
+    d1.getDate() === d2.getDate()
+  )
 }
