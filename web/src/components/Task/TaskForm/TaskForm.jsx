@@ -11,7 +11,7 @@ import {
   Submit,
 } from '@redwoodjs/forms'
 
-import TaskRepetitionForm from 'src/components/Task/TaskForm/TaskRepetitionForm'
+// import TaskRepetitionForm from 'src/components/Task/TaskForm/TaskRepetitionForm'
 import { getDateWithOffset, getDayOfTheWeekToday } from 'src/lib/dateFunctions'
 
 import TaskContext from './TaskContext'
@@ -57,21 +57,21 @@ const TaskForm = (props) => {
       instructions: data.instructions,
       date: data.date,
       time: data.time,
-      repetition,
-      repetitionCycles,
-      repetitionPeriod,
-      repetitionOnMondays,
-      repetitionOnTuesdays,
-      repetitionOnWednesdays,
-      repetitionOnThursdays,
-      repetitionOnFridays,
-      repetitionOnSaturdays,
-      repetitionOnSundays,
-      repetitionOnXDateOfMonth,
-      repetitionOnFirstXDayOfMonth,
-      repetitionEnd,
-      repetitionUntil,
-      repetitionOccurrences,
+      // repetition,
+      // repetitionCycles,
+      // repetitionPeriod,
+      // repetitionOnMondays,
+      // repetitionOnTuesdays,
+      // repetitionOnWednesdays,
+      // repetitionOnThursdays,
+      // repetitionOnFridays,
+      // repetitionOnSaturdays,
+      // repetitionOnSundays,
+      // repetitionOnXDateOfMonth,
+      // repetitionOnFirstXDayOfMonth,
+      // repetitionEnd,
+      // repetitionUntil,
+      // repetitionOccurrences,
     }
     props.onSave(taskFormData, props?.task?.id)
   }
@@ -233,7 +233,7 @@ const TaskForm = (props) => {
           <FieldError name="time" className="text-red-700 text-sm block" />
         </div>
 
-        <TaskRepetitionForm />
+        {/* <TaskRepetitionForm /> */}
 
         <Submit
           disabled={props.loading}
