@@ -1,8 +1,7 @@
 import { useAuth } from 'src/auth'
 
 const Navbar = () => {
-  const { isAuthenticated, currentUser, signUp, logIn, logOut } = useAuth()
-  console.log(currentUser)
+  const { isAuthenticated, signUp, logIn, logOut } = useAuth()
 
   return (
     <div className="w-full bg-white text-gray-700">

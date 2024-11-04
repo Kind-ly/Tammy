@@ -10,7 +10,6 @@ const signUpErrorHandler = (e) => {
 }
 
 const register = async (user) => {
-  console.log(`registering ${user}`)
   let newUser = {}
   try {
     newUser = await createUser({
@@ -33,26 +32,14 @@ export const handler = async (event, _context) => {
   const eventData = data.event
   let newUser = {}
 
-  console.log('received:')
-  console.log(user)
-
   if (eventData == 'signup') {
-    console.log('signup')
     newUser = await register(user)
   }
 
   if (eventData === 'login') {
-    //TO DO
-    // check if user exists on database
-    // if not create a user on database
-    //  check if user data matches netlify data
-    // if not update user data on data base
-    console.log('login')
     let existingUser = await getUserByEmail({ email: user.email })
     if (!existingUser) newUser = await register(user)
   }
-
-  console.log(newUser)
 
   const responseBody = {
     app_metadata: {
@@ -63,7 +50,6 @@ export const handler = async (event, _context) => {
       userID: newUser.id,
     },
   }
-  console.log(`responding with ${JSON.stringify(responseBody)}`)
 
   return {
     statusCode: 200,
