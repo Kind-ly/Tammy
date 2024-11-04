@@ -15,7 +15,7 @@ const register = async (user) => {
   try {
     newUser = await createUser({
       input: {
-        role: user.role,
+        role: user.app_metadata?.roles[0],
         email: user.email,
         name: user.user_metadata.full_name,
       },
