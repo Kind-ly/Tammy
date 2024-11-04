@@ -56,7 +56,7 @@ export const handler = async (event, _context) => {
 
   const responseBody = {
     app_metadata: {
-      roles: [newUser.role],
+      roles: user.app_metadata?.roles,
     },
     user_metadata: {
       ...user.user_metadata,
