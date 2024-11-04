@@ -1,4 +1,3 @@
-import { db } from 'src/lib/db'
 import { logger } from 'src/lib/logger'
 import { createUser, getUserByEmail } from 'src/services/users/users'
 
@@ -21,7 +20,6 @@ const register = async (user) => {
         name: user.user_metadata.full_name,
       },
     })
-    db.disconnect()
     return newUser
   } catch (e) {
     signUpErrorHandler(e)
@@ -35,7 +33,11 @@ export const handler = async (event, _context) => {
   const eventData = data.event
   let newUser = {}
 
+  console.log('received:')
+  console.log(user)
+
   if (eventData == 'signup') {
+    console.log('signup')
     newUser = await register(user)
   }
 
@@ -45,9 +47,12 @@ export const handler = async (event, _context) => {
     // if not create a user on database
     //  check if user data matches netlify data
     // if not update user data on data base
+    console.log('login')
     let existingUser = await getUserByEmail({ email: user.email })
     if (!existingUser) newUser = await register(user)
   }
+
+  console.log(newUser)
 
   const responseBody = {
     app_metadata: {
