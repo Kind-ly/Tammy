@@ -11,6 +11,7 @@ const signUpErrorHandler = (e) => {
 }
 
 const register = async (user) => {
+  console.log(`registering ${user}`)
   let newUser = {}
   try {
     newUser = await createUser({
@@ -57,6 +58,7 @@ export const handler = async (event, _context) => {
       userID: newUser.id,
     },
   }
+  console.log(`responding with ${JSON.stringify(responseBody)}`)
 
   return {
     statusCode: 200,
