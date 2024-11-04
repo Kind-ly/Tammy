@@ -38,7 +38,7 @@ const Navbar = () => {
                 Sign up
               </button>
               <button
-                className="focus:shadow-outline mb-3 inline-block w-full items-center rounded-lg border border-slate-300 px-3 py-2 text-left text-sm font-semibold text-teal-500 transition-colors hover:bg-teal-100 hover:text-teal-600 focus:bg-teal-100 focus:outline-none md:mb-0 md:w-auto"
+                className="focus:shadow-outline mb-3 inline-block w-full items-center rounded-lg border border-teal-300 px-3 py-2 text-left text-sm font-semibold text-teal-500 transition-colors hover:bg-teal-100 hover:text-teal-600 focus:bg-teal-100 focus:outline-none md:mb-0 md:w-auto"
                 onClick={() => {
                   logIn()
                 }}

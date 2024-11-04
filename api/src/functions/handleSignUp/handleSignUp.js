@@ -15,7 +15,7 @@ const register = async (user) => {
   try {
     newUser = await createUser({
       input: {
-        role: '',
+        role: user.role,
         email: user.email,
         name: user.user_metadata.full_name,
       },
@@ -50,7 +50,7 @@ export const handler = async (event, _context) => {
 
   const responseBody = {
     app_metadata: {
-      roles: [''],
+      roles: [newUser.role],
     },
     user_metadata: {
       ...user.user_metadata,
