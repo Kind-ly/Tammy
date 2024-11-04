@@ -4,7 +4,7 @@ export const schema = gql`
     name: String!
     patientInfo: String
     timezone: String!
-    careGivers: [CareGiver]!
+    users: [User]!
     tasks: [Task]!
   }
 

@@ -2,17 +2,16 @@ import { Link, routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 
 import PatientsCell from 'src/components/Patient/PatientsCell'
-import MainLayout from 'src/layouts/MainLayout/MainLayout'
 
 const PatientsPage = () => {
   return (
-    <MainLayout>
+    <>
       <Metadata title="Patients" description="Patients page" />
-      <ol className="list-none p-0 inline-flex mb-6">
+      <ol className="mb-6 inline-flex list-none p-0">
         <li className="flex items-center">
           <Link
             to={routes.home()}
-            className="text-slate-600 hover:text-teal-500 transition-colors duration-300"
+            className="text-slate-600 transition-colors duration-300 hover:text-teal-500"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -34,11 +33,11 @@ const PatientsPage = () => {
         <li>My Patients</li>
       </ol>
 
-      <div className="w-full flex flex-row mb-4">
-        <h1 className="text-2xl flex-1">My Patients</h1>
+      <div className="mb-4 flex w-full flex-row">
+        <h1 className="flex-1 text-2xl">My Patients</h1>
         <Link
           to={routes.newPatient()}
-          className="flex-none inline-block text-white bg-slate-400 items-center w-full px-4 py-3 text-sm font-semibold text-left rounded-lg md:w-auto hover:bg-slate-500 focus:bg-slate-500 focus:outline-none focus:shadow-outline transition-colors"
+          className="focus:shadow-outline inline-block w-full flex-none items-center rounded-lg bg-slate-400 px-4 py-3 text-left text-sm font-semibold text-white transition-colors hover:bg-slate-500 focus:bg-slate-500 focus:outline-none md:w-auto"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +45,7 @@ const PatientsPage = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="inline w-4 h-4 mr-1 size-6 align-text-bottom"
+            className="mr-1 inline size-6 h-4 w-4 align-text-bottom"
           >
             <path
               strokeLinecap="round"
@@ -59,7 +58,7 @@ const PatientsPage = () => {
       </div>
 
       <PatientsCell />
-    </MainLayout>
+    </>
   )
 }
 

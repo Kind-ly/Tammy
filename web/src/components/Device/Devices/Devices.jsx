@@ -1,6 +1,5 @@
 import { Link, routes } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
-
 import { toast } from '@redwoodjs/web/toast'
 
 import { QUERY } from 'src/components/Device/DevicesCell'
@@ -49,7 +48,7 @@ const DevicesList = ({ devices }) => {
           {devices.map((device) => (
             <tr key={device.id}>
               <td>{truncate(device.id)}</td>
-              <td>{truncate(device.careGiverId)}</td>
+              <td>{truncate(device.userId)}</td>
               <td>
                 <nav className="rw-table-actions">
                   <Link

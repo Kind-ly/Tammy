@@ -27,20 +27,20 @@ describe('devices', () => {
 
   scenario('creates a device', async (scenario) => {
     const result = await createDevice({
-      input: { careGiverId: scenario.device.two.careGiverId },
+      input: { userId: scenario.device.two.userId },
     })
 
-    expect(result.careGiverId).toEqual(scenario.device.two.careGiverId)
+    expect(result.userId).toEqual(scenario.device.two.userId)
   })
 
   scenario('updates a device', async (scenario) => {
     const original = await device({ id: scenario.device.one.id })
     const result = await updateDevice({
       id: original.id,
-      input: { careGiverId: scenario.device.two.careGiverId },
+      input: { userId: scenario.device.two.userId },
     })
 
-    expect(result.careGiverId).toEqual(scenario.device.two.careGiverId)
+    expect(result.userId).toEqual(scenario.device.two.userId)
   })
 
   scenario('deletes a device', async (scenario) => {

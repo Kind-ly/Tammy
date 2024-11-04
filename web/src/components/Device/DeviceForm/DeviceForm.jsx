@@ -23,7 +23,7 @@ const DeviceForm = (props) => {
         />
 
         <Label
-          name="careGiverId"
+          name="userId"
           className="rw-label"
           errorClassName="rw-label rw-label-error"
         >
@@ -31,14 +31,14 @@ const DeviceForm = (props) => {
         </Label>
 
         <NumberField
-          name="careGiverId"
-          defaultValue={props.device?.careGiverId}
+          name="userId"
+          defaultValue={props.device?.userId}
           className="rw-input"
           errorClassName="rw-input rw-input-error"
           validation={{ required: true }}
         />
 
-        <FieldError name="careGiverId" className="rw-field-error" />
+        <FieldError name="userId" className="rw-field-error" />
 
         <div className="rw-button-group">
           <Submit disabled={props.loading} className="rw-button rw-button-blue">

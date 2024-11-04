@@ -34,7 +34,7 @@ export const deleteDevice = ({ id }) => {
 }
 
 export const Device = {
-  CareGiver: (_obj, { root }) => {
-    return db.device.findUnique({ where: { id: root?.id } }).CareGiver()
+  User: (_obj, { root }) => {
+    return db.device.findUnique({ where: { id: root?.id } }).User()
   },
 }

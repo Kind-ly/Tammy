@@ -71,13 +71,10 @@ export const Success = ({ patientId, tasks, queryResult }) => {
 
   const goBack1Day = () => {
     setScheduleDate(new Date(scheduleDate.setDate(scheduleDate.getDate() - 1)))
-    // setFilteredTasks(getFilteredTasks())
   }
 
   const goForward1Day = () => {
     setScheduleDate(new Date(scheduleDate.setDate(scheduleDate.getDate() + 1)))
-    // setFilteredTasks(getFilteredTasks())
-    console.log(getFilteredTasks())
   }
 
   return (

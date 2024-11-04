@@ -97,7 +97,7 @@ export const hasRole = (allowedRoles) => {
  */
 export const requireAuth = ({ roles } = {}) => {
   if (!isAuthenticated()) {
-    throw new AuthenticationError("You don't have permission to do that.")
+    throw new AuthenticationError('You are not authorized for this page.')
   }
 
   if (roles && !hasRole(roles)) {

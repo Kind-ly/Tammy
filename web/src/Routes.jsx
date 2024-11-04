@@ -7,9 +7,10 @@
 // 'src/pages/HomePage/HomePage.js'         -> HomePage
 // 'src/pages/Admin/BooksPage/BooksPage.js' -> AdminBooksPage
 
-import { Router, Route } from '@redwoodjs/router'
+import { PrivateSet, Router, Route } from '@redwoodjs/router'
 
 import { useAuth } from './auth'
+import MainLayout from './layouts/MainLayout/MainLayout'
 
 // import ScaffoldLayout from 'src/layouts/ScaffoldLayout'
 
@@ -18,13 +19,19 @@ const Routes = () => {
     <Router useAuth={useAuth}>
       <Route path="/" page={HomePage} name="home" />
 
-      {/* PATIENTS */}
-      <Route path="/patients" page={PatientPatientsPage} name="patients" />
-      <Route path="/patients/new" page={PatientNewPatientPage} name="newPatient" />
-      <Route path="/patients/{id:String}" page={PatientPatientPage} name="patient" />
-      <Route path="/patients/{id:String}/edit" page={PatientEditPatientPage} name="editPatient" />
-      <Route path="/patients/{id:String}/tasks/new" page={TaskNewTaskPage} name="newTask" />
-      <Route path="/patients/{patientId:String}/tasks/{taskId:String}/edit" page={TaskEditTaskPage} name="editTask" />
+      {/* PATIENTS & TASKS */}
+      <PrivateSet unauthenticated="home" wrap={MainLayout}>
+        <Route path="/patients" page={PatientPatientsPage} name="patients" />
+        <Route path="/patients/new" page={PatientNewPatientPage} name="newPatient" />
+        <Route path="/patients/{id:String}" page={PatientPatientPage} name="patient" />
+        <Route path="/patients/{id:String}/edit" page={PatientEditPatientPage} name="editPatient" />
+        <Route path="/patients/{id:String}/tasks/new" page={TaskNewTaskPage} name="newTask" />
+        <Route path="/patients/{patientId:String}/tasks/{taskId:String}/edit" page={TaskEditTaskPage} name="editTask" />
+      </PrivateSet>
+
+      <PrivateSet unauthenticated="home" roles="admin" wrap={MainLayout}>
+        <Route path="/admin" page={AdminPage} name="admin" />
+      </PrivateSet>
 
       {/* <Set wrap={ScaffoldLayout} title="Actions" titleTo="actions" buttonLabel="New Action" buttonTo="newAction">
         <Route path="/actions/new" page={ActionNewActionPage} name="newAction" />

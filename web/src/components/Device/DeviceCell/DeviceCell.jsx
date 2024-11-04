@@ -4,7 +4,7 @@ export const QUERY = gql`
   query FindDeviceById($id: Int!) {
     device: device(id: $id) {
       id
-      careGiverId
+      userId
     }
   }
 `

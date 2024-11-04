@@ -6,7 +6,7 @@ export const QUERY = gql`
   query FindDevices {
     devices {
       id
-      careGiverId
+      userId
     }
   }
 `

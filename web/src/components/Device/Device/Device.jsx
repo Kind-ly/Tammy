@@ -45,7 +45,7 @@ const Device = ({ device }) => {
             </tr>
             <tr>
               <th>Care giver id</th>
-              <td>{device.careGiverId}</td>
+              <td>{device.userId}</td>
             </tr>
           </tbody>
         </table>

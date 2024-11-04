@@ -30,8 +30,8 @@ export const deletePatient = ({ id }) => {
 }
 
 export const Patient = {
-  careGivers: (_obj, { root }) => {
-    return db.patient.findUnique({ where: { id: root?.id } }).careGivers()
+  users: (_obj, { root }) => {
+    return db.patient.findUnique({ where: { id: root?.id } }).users()
   },
   tasks: (_obj, { root }) => {
     return db.patient.findUnique({ where: { id: root?.id } }).tasks()
