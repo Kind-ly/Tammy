@@ -14,8 +14,8 @@ generator client {
 
 model Device {
   id       Int                @id
-  User     User               @relation(fields: [userId], references: [id])
-  userId   String             @unique
+  User     User?              @relation(fields: [userId], references: [id])
+  userId   String?            @unique
 }
 
 model User {

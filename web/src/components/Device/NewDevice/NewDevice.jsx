@@ -1,13 +1,12 @@
 import { navigate, routes } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
-
 import { toast } from '@redwoodjs/web/toast'
 
 import DeviceForm from 'src/components/Device/DeviceForm'
 
 const CREATE_DEVICE_MUTATION = gql`
-  mutation CreateDeviceMutation($input: CreateDeviceInput!) {
-    createDevice(input: $input) {
+  mutation CreateDeviceMutation($id: Int!) {
+    createDevice(id: $id) {
       id
     }
   }
@@ -28,19 +27,11 @@ const NewDevice = () => {
   )
 
   const onSave = (input) => {
-    createDevice({ variables: { input } })
+    createDevice({ variables: { id: input.id } })
+    // console.log(input)
   }
 
-  return (
-    <div className="rw-segment">
-      <header className="rw-segment-header">
-        <h2 className="rw-heading rw-heading-secondary">New Device</h2>
-      </header>
-      <div className="rw-segment-main">
-        <DeviceForm onSave={onSave} loading={loading} error={error} />
-      </div>
-    </div>
-  )
+  return <DeviceForm onSave={onSave} loading={loading} error={error} />
 }
 
 export default NewDevice

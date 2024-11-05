@@ -47,20 +47,11 @@ export const Success = ({ device }) => {
   }
 
   return (
-    <div className="rw-segment">
-      <header className="rw-segment-header">
-        <h2 className="rw-heading rw-heading-secondary">
-          Edit Device {device?.id}
-        </h2>
-      </header>
-      <div className="rw-segment-main">
-        <DeviceForm
-          device={device}
-          onSave={onSave}
-          error={error}
-          loading={loading}
-        />
-      </div>
-    </div>
+    <DeviceForm
+      device={device}
+      onSave={onSave}
+      error={error}
+      loading={loading}
+    />
   )
 }

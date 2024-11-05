@@ -30,34 +30,16 @@ const Routes = () => {
       </PrivateSet>
 
       <PrivateSet unauthenticated="home" roles="admin" wrap={MainLayout}>
-        <Route path="/admin" page={AdminPage} name="admin" />
+        <Route path="/admin/devices" page={AdminDevicesPage} name="devices" />
+        <Route path="/admin/devices/new" page={AdminNewDevicePage} name="newDevice" />
+        <Route path="/admin/devices/{id:Int}/edit" page={AdminEditDevicePage} name="editDevice" />
       </PrivateSet>
 
-      {/* <Set wrap={ScaffoldLayout} title="Actions" titleTo="actions" buttonLabel="New Action" buttonTo="newAction">
-        <Route path="/actions/new" page={ActionNewActionPage} name="newAction" />
-        <Route path="/actions/{id:Int}/edit" page={ActionEditActionPage} name="editAction" />
-        <Route path="/actions/{id:Int}" page={ActionActionPage} name="action" />
-        <Route path="/actions" page={ActionActionsPage} name="actions" />
-      </Set>
-      <Set wrap={ScaffoldLayout} title="Tasks" titleTo="tasks" buttonLabel="New Task" buttonTo="newTask">
-        <Route path="/tasks/{id:Int}/edit" page={TaskEditTaskPage} name="editTask" />
-        <Route path="/tasks/{id:Int}" page={TaskTaskPage} name="task" />
-        <Route path="/tasks" page={TaskTasksPage} name="tasks" />
-      </Set>
-      <Set wrap={ScaffoldLayout} title="Devices" titleTo="devices" buttonLabel="New Device" buttonTo="newDevice">
-        <Route path="/devices/new" page={DeviceNewDevicePage} name="newDevice" />
-        <Route path="/devices/{id:Int}/edit" page={DeviceEditDevicePage} name="editDevice" />
-        <Route path="/devices/{id:Int}" page={DeviceDevicePage} name="device" />
-        <Route path="/devices" page={DeviceDevicesPage} name="devices" />
-      </Set>
-      <Set wrap={ScaffoldLayout} title="CareGivers" titleTo="careGivers" buttonLabel="New CareGiver" buttonTo="newCareGiver">
+      {/* <Set wrap={ScaffoldLayout} title="CareGivers" titleTo="careGivers" buttonLabel="New CareGiver" buttonTo="newCareGiver">
         <Route path="/care-givers/new" page={CareGiverNewCareGiverPage} name="newCareGiver" />
         <Route path="/care-givers/{id:Int}/edit" page={CareGiverEditCareGiverPage} name="editCareGiver" />
         <Route path="/care-givers/{id:Int}" page={CareGiverCareGiverPage} name="careGiver" />
         <Route path="/care-givers" page={CareGiverCareGiversPage} name="careGivers" />
-      </Set>
-      <Set wrap={ScaffoldLayout} title="Patients" titleTo="patients" buttonLabel="New Patient" buttonTo="newPatient">
-
       </Set> */}
       <Route notfound page={NotFoundPage} />
     </Router>

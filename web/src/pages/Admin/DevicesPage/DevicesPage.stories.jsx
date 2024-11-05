@@ -1,7 +1,7 @@
-import AdminPage from './AdminPage'
+import DevicesPage from './DevicesPage'
 
 const meta = {
-  component: AdminPage,
+  component: DevicesPage,
 }
 
 export default meta
