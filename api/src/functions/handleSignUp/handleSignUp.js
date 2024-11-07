@@ -38,6 +38,7 @@ export const handler = async (event, _context) => {
 
   if (eventData == 'signup') {
     console.log('signup')
+    console.log('creating new user')
     newUser = await register(user)
   }
 
@@ -46,7 +47,10 @@ export const handler = async (event, _context) => {
     let existingUser = await getUserByEmail({ email: user.email })
     console.log('existing user')
     console.log(existingUser)
-    if (!existingUser) newUser = await register(user)
+    if (existingUser == null) {
+      console.log('creating new user')
+      newUser = await register(user)
+    }
   }
 
   console.log('new user')
@@ -58,7 +62,7 @@ export const handler = async (event, _context) => {
     },
     user_metadata: {
       ...user.user_metadata,
-      userID: newUser.id,
+      userID: newUser?.id,
     },
   }
 
