@@ -3,6 +3,7 @@ export const schema = gql`
     id: Int!
     User: User
     userId: String
+    patient: Patient
   }
 
   type Query {

@@ -36,11 +36,11 @@ const Patient = ({ patient }) => {
         title={patient.name}
         description={patient.name + "'s details and schedule"}
       />
-      <ol className="list-none p-0 inline-flex mb-6">
+      <ol className="mb-6 inline-flex list-none p-0">
         <li className="flex items-center">
           <Link
             to={routes.home()}
-            className="text-slate-600 hover:text-teal-500 transition-colors duration-300"
+            className="text-slate-600 transition-colors duration-300 hover:text-teal-500"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +62,7 @@ const Patient = ({ patient }) => {
         <li>
           <Link
             to={routes.patients()}
-            className="text-slate-600 hover:text-teal-500 transition-colors duration-300"
+            className="text-slate-600 transition-colors duration-300 hover:text-teal-500"
           >
             My Patients
           </Link>
@@ -71,24 +71,31 @@ const Patient = ({ patient }) => {
         <li>{patient.name}</li>
       </ol>
 
-      <h1 className="text-2xl mb-4">{patient.name}</h1>
+      <h1 className="mb-4 text-2xl">{patient.name}</h1>
 
-      <div className="flex flex-col-reverse md:flex-row w-full">
+      <div className="flex w-full flex-col-reverse md:flex-row">
         <div className="flex-1 md:mr-6">
-          <div className="w-full text-gray-800 bg-white shadow-md rounded-lg bg-clip-border mb-4 pb-2">
+          <div className="mb-4 w-full rounded-lg bg-white bg-clip-border pb-2 text-gray-800 shadow-md">
             <TasksCell patientId={patient.id} />
           </div>
           {/* <div className="w-full text-gray-800 bg-white shadow-md rounded-lg bg-clip-border p-4">
             patient&apos;s conversation log
           </div> */}
         </div>
-        <div className="md:flex-none md:w-1/3 mb-6 md:mb-0">
-          <div className="w-full text-gray-800 bg-white shadow-md rounded-lg bg-clip-border p-4">
+        <div className="mb-6 md:mb-0 md:w-1/3 md:flex-none">
+          <div className="w-full rounded-lg bg-white bg-clip-border p-4 text-gray-800 shadow-md">
+            <h2 className="mb-2 text-lg font-semibold">Patient Info</h2>
             <p className="mb-4">{patient.patientInfo}</p>
             <nav className="w-full">
+              {!patient.deviceId && (
+                <p className="mb-4">
+                  No Tammy device has been set up for {patient.name} yet. Edit
+                  patient details to add the ID number of the device.
+                </p>
+              )}
               <Link
                 to={routes.editPatient({ id: patient.id })}
-                className="inline-block text-white bg-slate-400 items-center w-full px-4 py-3 mb-2 mr-2 text-sm font-semibold text-left rounded-lg md:w-auto hover:bg-slate-500 focus:bg-slate-500 focus:outline-none focus:shadow-outline transition-colors"
+                className="focus:shadow-outline mb-2 mr-2 inline-block w-full items-center rounded-lg bg-slate-400 px-4 py-3 text-left text-sm font-semibold text-white transition-colors hover:bg-slate-500 focus:bg-slate-500 focus:outline-none md:w-auto"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +103,7 @@ const Patient = ({ patient }) => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="inline w-4 h-4 mr-1 size-6 align-text-bottom"
+                  className="mr-1 inline size-6 h-4 w-4 align-text-bottom"
                 >
                   <path
                     strokeLinecap="round"
@@ -108,7 +115,7 @@ const Patient = ({ patient }) => {
               </Link>
               <button
                 type="button"
-                className="inline-block text-red-400 bg-white border border-red-400 items-center w-full px-4 py-3 text-sm font-semibold text-left rounded-lg md:w-auto hover:bg-red-50 focus:bg-red-50 focus:outline-none focus:shadow-outline transition-colors"
+                className="focus:shadow-outline inline-block w-full items-center rounded-lg border border-red-400 bg-white px-4 py-3 text-left text-sm font-semibold text-red-400 transition-colors hover:bg-red-50 focus:bg-red-50 focus:outline-none md:w-auto"
                 onClick={() => onDeleteClick(patient.id)}
               >
                 <svg
@@ -117,7 +124,7 @@ const Patient = ({ patient }) => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="inline w-4 h-4 mr-2 size-6 align-text-bottom"
+                  className="mr-2 inline size-6 h-4 w-4 align-text-bottom"
                 >
                   <path
                     strokeLinecap="round"

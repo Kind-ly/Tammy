@@ -6,6 +6,8 @@ export const schema = gql`
     timezone: String!
     users: [User]!
     tasks: [Task]!
+    Device: Device
+    deviceId: Int
   }
 
   type Query {
@@ -17,12 +19,14 @@ export const schema = gql`
     name: String!
     patientInfo: String
     timezone: String!
+    deviceId: Int
   }
 
   input UpdatePatientInput {
     name: String
     patientInfo: String
     timezone: String
+    deviceId: Int
   }
 
   type Mutation {

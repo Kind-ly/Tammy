@@ -7,6 +7,7 @@ export const QUERY = gql`
       name
       patientInfo
       timezone
+      deviceId
     }
   }
 `
