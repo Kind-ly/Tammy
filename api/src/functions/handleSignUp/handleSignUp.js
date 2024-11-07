@@ -19,6 +19,7 @@ const register = async (user) => {
         name: user.user_metadata.full_name,
       },
     })
+    console.log('newUser function')
     return newUser
   } catch (e) {
     signUpErrorHandler(e)
@@ -31,6 +32,9 @@ export const handler = async (event, _context) => {
   const { user } = data
   const eventData = data.event
   let newUser = {}
+
+  console.log('user data')
+  console.log(user)
 
   if (eventData == 'signup') {
     console.log('signup')
