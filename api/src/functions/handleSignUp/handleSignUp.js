@@ -33,13 +33,20 @@ export const handler = async (event, _context) => {
   let newUser = {}
 
   if (eventData == 'signup') {
+    console.log('signup')
     newUser = await register(user)
   }
 
   if (eventData === 'login') {
+    console.log('login')
     let existingUser = await getUserByEmail({ email: user.email })
+    console.log('existing user')
+    console.log(existingUser)
     if (!existingUser) newUser = await register(user)
   }
+
+  console.log('new user')
+  console.log(newUser)
 
   const responseBody = {
     app_metadata: {

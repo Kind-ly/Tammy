@@ -104,3 +104,18 @@ export const requireAuth = ({ roles } = {}) => {
     throw new ForbiddenError("You don't have access to do that.")
   }
 }
+
+export const isPatientCareGiver = () => {
+  console.log(context.currentUser)
+  return true
+}
+
+export const isPatientCareGiverOrAdmin = () => {
+  if (!isAuthenticated()) {
+    throw new AuthenticationError('You are not authorized for this page.')
+  }
+
+  if (!hasRole('admin') || isPatientCareGiver()) {
+    throw new ForbiddenError("You don't have access to do that.")
+  }
+}

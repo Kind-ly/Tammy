@@ -1,3 +1,4 @@
+import { isPatientCareGiver } from 'src/lib/auth'
 import { db } from 'src/lib/db'
 
 export const patients = () => {
@@ -5,6 +6,8 @@ export const patients = () => {
 }
 
 export const patient = ({ id }) => {
+  // must be patient's caregiver or admin
+  isPatientCareGiver()
   return db.patient.findUnique({
     where: { id },
   })
@@ -17,6 +20,7 @@ export const createPatient = ({ input }) => {
 }
 
 export const updatePatient = ({ id, input }) => {
+  // must be patient's caregiver or admin
   return db.patient.update({
     data: input,
     where: { id },
@@ -24,6 +28,7 @@ export const updatePatient = ({ id, input }) => {
 }
 
 export const deletePatient = ({ id }) => {
+  // must be patient's caregiver or admin
   return db.patient.delete({
     where: { id },
   })
