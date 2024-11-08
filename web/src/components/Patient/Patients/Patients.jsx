@@ -34,38 +34,36 @@ const PatientsList = ({ patients }) => {
   // }
 
   return (
-    <div className="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
-      <table className="w-full text-left table-auto min-w-max">
-        <thead>
-          <tr className="border-b border-slate-300 bg-slate-200">
-            <th className="p-4 text-sm font-normal leading-none text-slate-700">
-              Name
-            </th>
-            <th className="p-4 text-sm font-normal leading-none text-slate-700">
-              Most recent activity
-            </th>
+    <table className="w-full min-w-max table-auto text-left">
+      <thead>
+        <tr className="border-b border-slate-300 bg-slate-200">
+          <th className="p-4 text-sm font-normal leading-none text-slate-700">
+            Name
+          </th>
+          <th className="p-4 text-sm font-normal leading-none text-slate-700">
+            Most recent activity
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {patients.map((patient) => (
+          <tr key={patient.id} className="hover:bg-slate-50">
+            <td className="border-b border-slate-200">
+              <Link
+                className="block p-4 py-5 transition-colors hover:text-teal-600 focus:text-teal-600"
+                to={routes.patient({ id: patient.id })}
+                title={'Check up on ' + patient.name}
+              >
+                {patient.name}
+              </Link>
+            </td>
+            <td className="border-b border-slate-200 p-4 py-5">
+              {/* Things to show here: last update, warnings */}
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          {patients.map((patient) => (
-            <tr key={patient.id} className="hover:bg-slate-50">
-              <td className="border-b border-slate-200">
-                <Link
-                  className="block p-4 py-5 focus:text-teal-600 hover:text-teal-600 transition-colors"
-                  to={routes.patient({ id: patient.id })}
-                  title={'Check up on ' + patient.name}
-                >
-                  {patient.name}
-                </Link>
-              </td>
-              <td className="p-4 border-b border-slate-200 py-5">
-                {/* Things to show here: last update, warnings */}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+        ))}
+      </tbody>
+    </table>
   )
 }
 
