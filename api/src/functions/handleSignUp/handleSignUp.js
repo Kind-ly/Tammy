@@ -11,7 +11,7 @@ const signUpErrorHandler = (e) => {
 
 const register = async (user) => {
   let newUser = {}
-  let role = user.app_metadata?.roles ? user.app_metadata?.roles[0] : null
+  let role = user.app_metadata?.roles ? user.app_metadata?.roles[0] : ''
   console.log('role')
   console.log(role)
   try {
