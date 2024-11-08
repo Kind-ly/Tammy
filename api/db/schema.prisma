@@ -14,8 +14,6 @@ generator client {
 
 model Device {
   id        Int                @id
-  User      User?              @relation(fields: [userId], references: [id])
-  userId    String?            @unique
   patient   Patient?
 }
 
@@ -25,7 +23,6 @@ model User {
   name     String
   role     String
   patients Patient[]
-  devices  Device[]
 }
 
 model Patient {

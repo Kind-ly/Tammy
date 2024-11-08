@@ -1,3 +1,4 @@
+import { isUserOrAdmin } from 'src/lib/auth'
 import { db } from 'src/lib/db'
 
 export const users = () => {
@@ -5,8 +6,7 @@ export const users = () => {
 }
 
 export const user = ({ id }) => {
-  console.trace()
-  console.log(id)
+  isUserOrAdmin()
   return db.user.findUnique({
     where: { id },
     include: {
@@ -28,6 +28,7 @@ export const createUser = ({ input }) => {
 }
 
 export const updateUser = ({ id, input }) => {
+  isUserOrAdmin()
   return db.user.update({
     data: input,
     where: { id },
@@ -35,6 +36,7 @@ export const updateUser = ({ id, input }) => {
 }
 
 export const deleteUser = ({ id }) => {
+  isUserOrAdmin()
   return db.user.delete({
     where: { id },
   })

@@ -7,7 +7,6 @@ export const devices = () => {
 }
 
 export const device = ({ id }) => {
-  requireAuth({ roles: 'admin' })
   return db.device.findUnique({
     where: { id },
   })

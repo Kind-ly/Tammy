@@ -108,29 +108,38 @@ export const requireAuth = ({ roles } = {}) => {
 }
 
 export const isPatientCareGiver = async ({ id }) => {
-  if (!isAuthenticated()) {
-    throw new AuthenticationError('You are not authorized for this page.')
+  const caregiver = await user({ id: context.currentUser.user_metadata.userID })
+
+  const relevantPatients = caregiver.patients.filter(
+    (patient) => patient.id === id
+  )
+
+  if (!relevantPatients.length) {
+    return false
   }
-
-  // console.log(context.currentUser.user_metadata.userID)
-  // const caregiver = await user({ id: context.currentUser.user_metadata.userID })
-  console.log(context.currentUser)
-
-  // const relevantPatients = caregiver.patients.filter(
-  //   (patient) => patient.id === id
-  // )
-  // console.log(relevantPatients)
-  // if (!relevantPatients.length) {
-  //   throw new ForbiddenError("You don't have access to do that.")
-  // }
+  return true
 }
 
-export const isPatientCareGiverOrAdmin = ({ id }) => {
+export const isPatientCareGiverOrAdmin = async ({ id }) => {
   if (!isAuthenticated()) {
     throw new AuthenticationError('You are not authorized for this page.')
   }
 
-  if (!hasRole('admin') || isPatientCareGiver({ id })) {
+  const isCareGiver = await isPatientCareGiver({ id })
+
+  if (!(hasRole('admin') || isCareGiver)) {
+    throw new ForbiddenError("You don't have access to do that.")
+  }
+}
+
+export const isUserOrAdmin = async ({ id }) => {
+  if (!isAuthenticated()) {
+    throw new AuthenticationError('You are not authorized for this page.')
+  }
+
+  const isUser = context.currentUser.user_metadata.userID === id
+
+  if (!(hasRole('admin') || isUser)) {
     throw new ForbiddenError("You don't have access to do that.")
   }
 }

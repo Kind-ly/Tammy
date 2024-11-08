@@ -1,5 +1,8 @@
-import { isPatientCareGiver } from 'src/lib/auth'
+import { UserInputError } from '@redwoodjs/graphql-server'
+
+import { isPatientCareGiverOrAdmin } from 'src/lib/auth'
 import { db } from 'src/lib/db'
+import { device } from 'src/services/devices/devices'
 import { user } from 'src/services/users/users'
 
 export const patients = () => {
@@ -10,9 +13,8 @@ export const patients = () => {
   })
 }
 
-export const patient = ({ id }) => {
-  // must be patient's caregiver or admin
-  isPatientCareGiver({ id })
+export const patient = async ({ id }) => {
+  await isPatientCareGiverOrAdmin({ id })
   return db.patient.findUnique({
     where: { id },
     include: {
@@ -22,40 +24,81 @@ export const patient = ({ id }) => {
 }
 
 export const createPatient = async ({ input }) => {
-  // check device exists and connect if one is given
   const caregiver = await user({ id: context.currentUser.user_metadata.userID })
-  console.log(caregiver)
-  return db.patient.create({
-    data: {
-      name: input.name,
-      patientInfo: input.patientInfo,
-      timezone: input.timezone,
-      users: {
-        connect: [
-          {
-            id: caregiver.id,
+
+  if (input.deviceId) {
+    if (!device({ id: input.deviceId })) {
+      throw new UserInputError('Device ID does not exist.')
+    } else {
+      return db.patient.create({
+        data: {
+          name: input.name,
+          patientInfo: input.patientInfo,
+          timezone: input.timezone,
+          users: {
+            connect: [
+              {
+                id: caregiver.id,
+              },
+            ],
           },
-        ],
-      },
-      Device: {
-        connect: {
-          id: input.deviceId,
+          Device: {
+            connect: {
+              id: input.deviceId,
+            },
+          },
+        },
+      })
+    }
+  } else {
+    return db.patient.create({
+      data: {
+        name: input.name,
+        patientInfo: input.patientInfo,
+        timezone: input.timezone,
+        users: {
+          connect: [
+            {
+              id: caregiver.id,
+            },
+          ],
         },
       },
-    },
-  })
+    })
+  }
 }
 
-export const updatePatient = ({ id, input }) => {
-  // must be patient's caregiver or admin
-  return db.patient.update({
-    data: input,
-    where: { id },
-  })
+export const updatePatient = async ({ id, input }) => {
+  await isPatientCareGiverOrAdmin({ id })
+
+  if (input.deviceId) {
+    if (!device({ id: input.deviceId })) {
+      throw new UserInputError('Device ID does not exist.')
+    } else {
+      return db.patient.update({
+        data: {
+          name: input.name,
+          patientInfo: input.patientInfo,
+          timezone: input.timezone,
+          Device: {
+            connect: {
+              id: input.deviceId,
+            },
+          },
+        },
+        where: { id },
+      })
+    }
+  } else {
+    return db.patient.update({
+      data: input,
+      where: { id },
+    })
+  }
 }
 
-export const deletePatient = ({ id }) => {
-  // must be patient's caregiver or admin
+export const deletePatient = async ({ id }) => {
+  await isPatientCareGiverOrAdmin({ id })
   return db.patient.delete({
     where: { id },
   })

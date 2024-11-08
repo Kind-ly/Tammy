@@ -1,6 +1,5 @@
+import { isPatientCareGiverOrAdmin } from 'src/lib/auth'
 import { db } from 'src/lib/db'
-
-// import { patient } from '../patients/patients'
 
 export const tasks = () => {
   return db.task.findMany()
@@ -29,20 +28,23 @@ export const task = ({ id }) => {
   })
 }
 
-export const createTask = ({ input }) => {
+export const createTask = async ({ input }) => {
+  await isPatientCareGiverOrAdmin({ id: input.patientId })
   return db.task.create({
     data: input,
   })
 }
 
-export const updateTask = ({ id, input }) => {
+export const updateTask = async ({ id, input }) => {
+  await isPatientCareGiverOrAdmin({ id })
   return db.task.update({
     data: input,
     where: { id },
   })
 }
 
-export const deleteTask = ({ id }) => {
+export const deleteTask = async ({ id }) => {
+  await isPatientCareGiverOrAdmin({ id })
   return db.task.delete({
     where: { id },
   })
