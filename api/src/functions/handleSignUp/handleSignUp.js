@@ -11,10 +11,13 @@ const signUpErrorHandler = (e) => {
 
 const register = async (user) => {
   let newUser = {}
+  let role = user.app_metadata?.roles ? user.app_metadata?.roles[0] : null
+  console.log('role')
+  console.log(role)
   try {
     newUser = await createUser({
       input: {
-        role: user.app_metadata?.roles[0],
+        role,
         email: user.email,
         name: user.user_metadata.full_name,
       },
