@@ -12,8 +12,8 @@ const signUpErrorHandler = (e) => {
 const register = async (user) => {
   let newUser = {}
   let role = user.app_metadata?.roles ? user.app_metadata?.roles[0] : ''
-  console.log('role')
-  console.log(role)
+  // console.log('role')
+  // console.log(role)
   try {
     newUser = await createUser({
       input: {
@@ -22,7 +22,7 @@ const register = async (user) => {
         name: user.user_metadata.full_name,
       },
     })
-    console.log('newUser function')
+    // console.log('newUser function')
     return newUser
   } catch (e) {
     signUpErrorHandler(e)
@@ -36,28 +36,28 @@ export const handler = async (event, _context) => {
   const eventData = data.event
   let newUser = {}
 
-  console.log('user data')
-  console.log(user)
+  // console.log('user data')
+  // console.log(user)
 
   if (eventData == 'signup') {
-    console.log('signup')
-    console.log('creating new user')
+    // console.log('signup')
+    // console.log('creating new user')
     newUser = await register(user)
   }
 
   if (eventData === 'login') {
-    console.log('login')
+    // console.log('login')
     let existingUser = await getUserByEmail({ email: user.email })
-    console.log('existing user')
-    console.log(existingUser)
+    // console.log('existing user')
+    // console.log(existingUser)
     if (existingUser == null) {
-      console.log('creating new user')
+      // console.log('creating new user')
       newUser = await register(user)
-    }
+    } else newUser = existingUser
   }
 
-  console.log('new user')
-  console.log(newUser)
+  // console.log('new user')
+  // console.log(newUser)
 
   const responseBody = {
     app_metadata: {

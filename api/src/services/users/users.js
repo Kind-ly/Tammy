@@ -5,8 +5,13 @@ export const users = () => {
 }
 
 export const user = ({ id }) => {
+  console.trace()
+  console.log(id)
   return db.user.findUnique({
     where: { id },
+    include: {
+      patients: true,
+    },
   })
 }
 

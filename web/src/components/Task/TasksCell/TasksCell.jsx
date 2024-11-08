@@ -27,7 +27,7 @@ export const QUERY = gql`
 `
 
 const EmptyTasks = ({ patientId }) => (
-  <>
+  <div className="p-4">
     <p className="mb-4 text-lg text-slate-600">
       You haven&apos;t added any tasks for your patient yet.
     </p>
@@ -51,7 +51,7 @@ const EmptyTasks = ({ patientId }) => (
       </svg>
       Add a task
     </Link>
-  </>
+  </div>
 )
 
 export const Loading = () => <div>Loading...</div>

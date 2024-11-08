@@ -1,6 +1,8 @@
 import { parseJWT } from '@redwoodjs/api'
 import { AuthenticationError, ForbiddenError } from '@redwoodjs/graphql-server'
 
+import { user } from 'src/services/users/users'
+
 /**
  * Represents the user attributes returned by the decoding the
  * Authentication provider's JWT together with an optional list of roles.
@@ -105,17 +107,30 @@ export const requireAuth = ({ roles } = {}) => {
   }
 }
 
-export const isPatientCareGiver = () => {
-  console.log(context.currentUser)
-  return true
-}
-
-export const isPatientCareGiverOrAdmin = () => {
+export const isPatientCareGiver = async ({ id }) => {
   if (!isAuthenticated()) {
     throw new AuthenticationError('You are not authorized for this page.')
   }
 
-  if (!hasRole('admin') || isPatientCareGiver()) {
+  // console.log(context.currentUser.user_metadata.userID)
+  // const caregiver = await user({ id: context.currentUser.user_metadata.userID })
+  console.log(context.currentUser)
+
+  // const relevantPatients = caregiver.patients.filter(
+  //   (patient) => patient.id === id
+  // )
+  // console.log(relevantPatients)
+  // if (!relevantPatients.length) {
+  //   throw new ForbiddenError("You don't have access to do that.")
+  // }
+}
+
+export const isPatientCareGiverOrAdmin = ({ id }) => {
+  if (!isAuthenticated()) {
+    throw new AuthenticationError('You are not authorized for this page.')
+  }
+
+  if (!hasRole('admin') || isPatientCareGiver({ id })) {
     throw new ForbiddenError("You don't have access to do that.")
   }
 }

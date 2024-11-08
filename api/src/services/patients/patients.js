@@ -1,21 +1,48 @@
 import { isPatientCareGiver } from 'src/lib/auth'
 import { db } from 'src/lib/db'
+import { user } from 'src/services/users/users'
 
 export const patients = () => {
-  return db.patient.findMany()
+  return db.patient.findMany({
+    include: {
+      users: true,
+    },
+  })
 }
 
 export const patient = ({ id }) => {
   // must be patient's caregiver or admin
-  isPatientCareGiver()
+  isPatientCareGiver({ id })
   return db.patient.findUnique({
     where: { id },
+    include: {
+      users: true,
+    },
   })
 }
 
-export const createPatient = ({ input }) => {
+export const createPatient = async ({ input }) => {
+  // check device exists and connect if one is given
+  const caregiver = await user({ id: context.currentUser.user_metadata.userID })
+  console.log(caregiver)
   return db.patient.create({
-    data: input,
+    data: {
+      name: input.name,
+      patientInfo: input.patientInfo,
+      timezone: input.timezone,
+      users: {
+        connect: [
+          {
+            id: caregiver.id,
+          },
+        ],
+      },
+      Device: {
+        connect: {
+          id: input.deviceId,
+        },
+      },
+    },
   })
 }
 
