@@ -23,6 +23,15 @@ export const patient = async ({ id }) => {
   })
 }
 
+export const getPatientForDevice = ({ id }) => {
+  return db.patient.findUnique({
+    where: { deviceId: id },
+    include: {
+      users: true,
+    },
+  })
+}
+
 export const createPatient = async ({ input }) => {
   const caregiver = await user({ id: context.currentUser.user_metadata.userID })
 

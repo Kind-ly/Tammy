@@ -1,11 +1,11 @@
 import { mockHttpEvent, mockContext } from '@redwoodjs/testing/api'
 
-import { handler } from './device'
+import { handler } from './getPatientDetails'
 
 //   Improve this test with help from the Redwood Testing Doc:
 //    https://redwoodjs.com/docs/testing#testing-functions
 
-describe('device function', () => {
+describe('getPatientDetails function', () => {
   it('Should respond with 200', async () => {
     const httpEvent = mockHttpEvent({
       queryStringParameters: {
@@ -17,7 +17,7 @@ describe('device function', () => {
     const { data } = JSON.parse(response.body)
 
     expect(response.statusCode).toBe(200)
-    expect(data).toBe('device function')
+    expect(data).toBe('getPatientDetails function')
   })
 
   // You can also use scenarios to test your api functions

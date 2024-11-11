@@ -1,6 +1,6 @@
 import OpenAI from 'openai'
 
-import { getTasks } from 'src/functions/schedule/schedule'
+import { getTasks } from 'src/functions/getTasksForPatientOnDate/getTasksForPatientOnDate'
 import { logger } from 'src/lib/logger'
 import { getSchedulePrompt } from 'src/lib/prompts'
 
@@ -63,7 +63,7 @@ async function getResponse(transcript) {
 }
 
 export const handler = async (event, _context) => {
-  logger.info(`${event.httpMethod} ${event.path}: device function`)
+  logger.info(`${event.httpMethod} ${event.path}: getResponse function`)
 
   // TODO get the device ID and map to the patient ID
   const transcript = JSON.parse(event.body).transcript
