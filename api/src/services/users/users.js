@@ -6,7 +6,7 @@ export const users = () => {
 }
 
 export const user = ({ id }) => {
-  isUserOrAdmin()
+  isUserOrAdmin({ id })
   return db.user.findUnique({
     where: { id },
     include: {
@@ -28,7 +28,7 @@ export const createUser = ({ input }) => {
 }
 
 export const updateUser = ({ id, input }) => {
-  isUserOrAdmin()
+  isUserOrAdmin({ id })
   return db.user.update({
     data: input,
     where: { id },
@@ -36,7 +36,7 @@ export const updateUser = ({ id, input }) => {
 }
 
 export const deleteUser = ({ id }) => {
-  isUserOrAdmin()
+  isUserOrAdmin({ id })
   return db.user.delete({
     where: { id },
   })
