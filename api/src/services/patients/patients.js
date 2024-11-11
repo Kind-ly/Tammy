@@ -33,6 +33,8 @@ export const getPatientForDevice = ({ id }) => {
 }
 
 export const createPatient = async ({ input }) => {
+  console.log('----------------')
+  console.log(context)
   const caregiver = await user({ id: context.currentUser.user_metadata.userID })
 
   if (input.deviceId) {

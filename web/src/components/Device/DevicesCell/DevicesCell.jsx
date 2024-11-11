@@ -7,8 +7,8 @@ export const QUERY = gql`
     devices {
       id
       userId
-      User {
-        email
+      patient {
+        id
       }
     }
   }
