@@ -76,6 +76,7 @@ export const handler = async (event, _context) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
+      id: patient.id,
       name: patient.name,
       condition: patient.condition,
       date,
