@@ -6,14 +6,34 @@ import { getSchedulePrompt } from 'src/lib/prompts'
 
 const openai = new OpenAI()
 
-async function getResponse(transcript) {
+async function getResponse({ transcript, deviceId }) {
   // TODO: get the patient ID as a parameter – currently hard-coded in the prompt
   const chatCompletion = await openai.chat.completions.create({
     messages: [
       { role: 'system', content: getSchedulePrompt },
-      { role: 'user', content: transcript },
+      { role: 'user', content: { transcript, deviceId } },
     ],
     tools: [
+      {
+        type: 'function',
+        function: {
+          name: 'getPatientDetails',
+          description:
+            "Get the details about a patient using a particular device, including their ID, their name, their medical condition, caregivers' details, and the patient's current date and time. Call this first to get the patient ID and whenever you need additional context about the patient.",
+          strict: false,
+          parameters: {
+            type: 'object',
+            required: ['id'],
+            properties: {
+              id: {
+                type: 'integer',
+                description: 'The device ID.',
+              },
+            },
+            additionalProperties: false,
+          },
+        },
+      },
       {
         type: 'function',
         function: {
@@ -22,13 +42,18 @@ async function getResponse(transcript) {
             "Get the schedule for a patient on a specific date. This will be a list of tasks that the patient should complete at specific times. Call this whenever you need to know the patient's schedule, for example when a patient asks 'What do I have to do today'",
           parameters: {
             type: 'object',
+            required: ['id', 'date'],
             properties: {
               id: {
                 type: 'string',
                 description: 'The patient ID.',
               },
+              date: {
+                type: 'string',
+                description:
+                  'The date for which the tasks schedule should be returned.',
+              },
             },
-            required: ['id'],
             additionalProperties: false,
           },
         },
@@ -65,9 +90,9 @@ async function getResponse(transcript) {
 export const handler = async (event, _context) => {
   logger.info(`${event.httpMethod} ${event.path}: getResponse function`)
 
-  // TODO get the device ID and map to the patient ID
   const transcript = JSON.parse(event.body).transcript
-  const response = await getResponse(transcript)
+  const deviceId = JSON.parse(event.body).deviceId
+  const response = await getResponse({ transcript, deviceId })
 
   return {
     statusCode: 200,
@@ -79,45 +104,3 @@ export const handler = async (event, _context) => {
     }),
   }
 }
-
-/**
- * The handler function is your code that processes http request events.
- * You can use return and throw to send a response or error, respectively.
- *
- * Important: When deployed, a custom serverless function is an open API endpoint and
- * is your responsibility to secure appropriately.
- *
- * @see {@link https://redwoodjs.com/docs/serverless-functions#security-considerations|Serverless Function Considerations}
- * in the RedwoodJS documentation for more information.
- *
- * @typedef { import('aws-lambda').APIGatewayEvent } APIGatewayEvent
- * @typedef { import('aws-lambda').Context } Context
- * @param { APIGatewayEvent } event - an object which contains information from the invoker.
- * @param { Context } _context - contains information about the invocation,
- * function, and execution environment.
- */
-
-// tools: [
-//   {
-//       "type": "function",
-//       "function": {
-//           "name": "tasksForPatientOnDate",
-//           "description": "Get the schedule for a patient on a specific date. This will be a list of tasks that the patient should complete at specific times. Call this whenever you need to know the patient's schedule, for example when a patient asks 'What do I have to do today'",
-//           "parameters": {
-//               "type": "object",
-//               "properties": {
-//                   "id": {
-//                     "type": "integer",
-//                     "description": "The patient ID.",
-//                   },
-//                   "date": {
-//                     "type": "string",
-//                     "description": "The date on which the tasks should be completed",
-//                   }
-//               },
-//               "required": ["id", "date"],
-//               "additionalProperties": False,
-//           },
-//       }
-//   }
-// ],
