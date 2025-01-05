@@ -2,6 +2,12 @@ import { logger } from 'src/lib/logger'
 import { device } from 'src/services/devices/devices'
 import { getPatientForDevice } from 'src/services/patients/patients'
 
+/**
+ * The getPatientDetails function takes a device ID and returns relevant details about the patient using that device.
+ * @param {*} event
+ * @param {*} _context
+ * @returns
+ */
 export const handler = async (event, _context) => {
   logger.info(`${event.httpMethod} ${event.path}: getPatientDetails function`)
 

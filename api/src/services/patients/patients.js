@@ -38,7 +38,6 @@ export const createPatient = async ({ input }) => {
   // console.log(context.requestContext)
   // console.log(context.requestContext.clientContext)
   const userId = context.requestContext.clientContext.user.user_metadata.userID
-  console.log(userId)
   const caregiver = await user({ id: userId })
 
   if (input.deviceId) {
