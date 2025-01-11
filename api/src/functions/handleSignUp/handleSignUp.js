@@ -20,6 +20,7 @@ const register = async (user) => {
         role,
         email: user.email,
         name: user.user_metadata.full_name,
+        phoneNumber: null,
       },
     })
     // console.log('newUser function')
