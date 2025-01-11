@@ -1,6 +1,7 @@
 import { routes, navigate } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
+import { Toaster } from '@redwoodjs/web/toast'
 
 import 'src/lib/formatters'
 
@@ -42,24 +43,24 @@ const Task = ({ patientId, task, refetch }) => {
 
   return (
     <tr className="">
-      <td className="font-bold p-2 py-4 pl-4 min-w-20">{task.time}</td>
+      <td className="min-w-20 p-2 py-4 pl-4 font-bold">{task.time}</td>
       <td className="p-2 py-4">{task.description}</td>
       <td className="p-2 py-4 pr-4">
         <div
           className={
             task.status === 'TODO'
-              ? 'inline-block relative py-1 text-xs bg-slate-100 text-slate-500 rounded-md px-2'
+              ? 'relative inline-block rounded-md bg-slate-100 px-2 py-1 text-xs text-slate-500'
               : task.status === 'COMPLETED'
-                ? 'inline-block relative py-1 text-xs bg-teal-100 text-teal-600 rounded-md px-2'
-                : 'inline-block relative py-1 text-xs bg-red-100 text-red-500 rounded-md px-2'
+                ? 'relative inline-block rounded-md bg-teal-100 px-2 py-1 text-xs text-teal-600'
+                : 'relative inline-block rounded-md bg-red-100 px-2 py-1 text-xs text-red-500'
           }
         >
-          <span className="uppercase font-semibold pr-px">
+          <span className="pr-px font-semibold uppercase">
             <span>{getStatus(task.status)}</span>
           </span>
         </div>
       </td>
-      <td className="p-2 py-4 flex flex-row">
+      <td className="flex flex-row p-2 py-4">
         <button
           className="middle none center flex items-center justify-center rounded-lg p-3 font-sans text-xs font-bold uppercase text-teal-500 transition-all hover:bg-teal-500/10 active:bg-teal-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           data-ripple-dark="true"
@@ -105,6 +106,7 @@ const Task = ({ patientId, task, refetch }) => {
           </svg>
         </button>
       </td>
+      <Toaster />
     </tr>
   )
 }

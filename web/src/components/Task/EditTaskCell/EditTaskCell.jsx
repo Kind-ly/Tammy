@@ -2,6 +2,7 @@ import { navigate, routes } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import { Metadata } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
+import { Toaster } from '@redwoodjs/web/toast'
 
 import TaskForm from 'src/components/Task/TaskForm'
 
@@ -70,6 +71,8 @@ export const Success = ({ patient, task }) => {
         error={error}
         loading={loading}
       />
+
+      <Toaster />
     </>
   )
 }

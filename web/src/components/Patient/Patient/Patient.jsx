@@ -2,6 +2,7 @@ import { Link, routes, navigate } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import { Metadata } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
+import { Toaster } from '@redwoodjs/web/toast'
 
 import TasksCell from 'src/components/Task/TasksCell/TasksCell'
 
@@ -138,6 +139,7 @@ const Patient = ({ patient }) => {
           </div>
         </div>
       </div>
+      <Toaster />
     </>
   )
 }

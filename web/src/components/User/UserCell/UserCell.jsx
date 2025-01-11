@@ -1,5 +1,6 @@
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
+import { Toaster } from '@redwoodjs/web/toast'
 
 import UserForm from '../UserForm/UserForm'
 
@@ -48,6 +49,9 @@ export const Success = ({ user }) => {
   }
 
   return (
-    <UserForm user={user} onSave={onSave} error={error} loading={loading} />
+    <>
+      <UserForm user={user} onSave={onSave} error={error} loading={loading} />
+      <Toaster />
+    </>
   )
 }

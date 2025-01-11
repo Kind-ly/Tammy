@@ -2,6 +2,7 @@ import { Link, navigate, routes } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import { Metadata } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
+import { Toaster } from '@redwoodjs/web/toast'
 
 import TaskForm from 'src/components/Task/TaskForm'
 
@@ -36,11 +37,11 @@ const NewTask = ({ patient }) => {
         title={'Add a new task for ' + patient.name}
         description={'Add a new task for ' + patient.name}
       />
-      <ol className="list-none p-0 inline-flex mb-6">
+      <ol className="mb-6 inline-flex list-none p-0">
         <li className="flex items-center">
           <Link
             to={routes.home()}
-            className="text-slate-600 hover:text-teal-500 transition-colors duration-300"
+            className="text-slate-600 transition-colors duration-300 hover:text-teal-500"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +63,7 @@ const NewTask = ({ patient }) => {
         <li>
           <Link
             to={routes.patients()}
-            className="text-slate-600 hover:text-teal-500 transition-colors duration-300"
+            className="text-slate-600 transition-colors duration-300 hover:text-teal-500"
           >
             My Patients
           </Link>
@@ -71,7 +72,7 @@ const NewTask = ({ patient }) => {
         <li>
           <Link
             to={routes.patient({ id: patient.id })}
-            className="text-slate-600 hover:text-teal-500 transition-colors duration-300"
+            className="text-slate-600 transition-colors duration-300 hover:text-teal-500"
           >
             {patient.name}
           </Link>
@@ -90,6 +91,7 @@ const NewTask = ({ patient }) => {
         error={error}
         patient={patient}
       />
+      <Toaster />
     </>
   )
 }

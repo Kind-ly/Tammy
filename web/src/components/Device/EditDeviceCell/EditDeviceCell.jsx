@@ -1,6 +1,7 @@
 import { navigate, routes } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
+import { Toaster } from '@redwoodjs/web/toast'
 
 import DeviceForm from 'src/components/Device/DeviceForm'
 
@@ -47,11 +48,14 @@ export const Success = ({ device }) => {
   }
 
   return (
-    <DeviceForm
-      device={device}
-      onSave={onSave}
-      error={error}
-      loading={loading}
-    />
+    <>
+      <DeviceForm
+        device={device}
+        onSave={onSave}
+        error={error}
+        loading={loading}
+      />
+      <Toaster />
+    </>
   )
 }

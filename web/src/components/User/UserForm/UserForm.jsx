@@ -54,16 +54,8 @@ const UserForm = ({ user, onSave, error, loading }) => {
       <EmailField
         name="email"
         defaultValue={user?.email}
-        className="mb-4 w-full rounded-md border border-slate-200 bg-white px-6 py-3 text-base font-medium text-black outline-none focus:border-teal-300 focus:shadow-md"
-        errorClassName="mb-4 w-full rounded-md border py-3 px-6 text-base font-medium outline-none focus:border-red-400 focus:shadow-md bg-red-50 border-red-500 text-red-900"
-        validation={{
-          required: 'Please provide your email address',
-          pattern: {
-            value:
-              /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
-            message: 'Please provide a valid email address',
-          },
-        }}
+        disabled
+        className="disabled mb-4 w-full rounded-md border border-slate-200 bg-white px-6 py-3 text-base font-medium text-black outline-none focus:border-teal-300 focus:shadow-md disabled:cursor-not-allowed disabled:border-slate-200 disabled:bg-slate-50 disabled:text-slate-500 disabled:shadow-none"
       />
 
       <Label
