@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "User" ALTER COLUMN "role" DROP DEFAULT,
+ALTER COLUMN "phoneNumber" SET DEFAULT '';

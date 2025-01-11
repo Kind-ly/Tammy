@@ -33,7 +33,7 @@ const PatientForm = (props) => {
         className="mb-2 block text-base font-medium text-black"
         errorClassName="text-red-700"
       >
-        Patient Name
+        Patient name
         <p className="mt-1 text-sm font-normal text-gray-700">
           This is something that could be spoken to the patient to put them at
           ease.

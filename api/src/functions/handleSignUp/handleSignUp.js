@@ -29,6 +29,7 @@ const register = async (user) => {
   }
 }
 
+// This is NOT called locally...
 export const handler = async (event, _context) => {
   logger.info(`${event.httpMethod} ${event.path}: handleSignUp function`)
   const data = JSON.parse(event.body)

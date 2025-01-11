@@ -79,6 +79,7 @@ export const handler = async (event, _context) => {
       id: patient.id,
       name: patient.name,
       condition: patient.condition,
+      careGivers: patient.users,
       date,
       time,
     }),

@@ -5,9 +5,9 @@ export const users = () => {
   return db.user.findMany()
 }
 
-export const user = ({ id }) => {
+export const user = async ({ id }) => {
   isUserOrAdmin({ id })
-  return db.user.findUnique({
+  return await db.user.findUnique({
     where: { id },
     include: {
       patients: true,

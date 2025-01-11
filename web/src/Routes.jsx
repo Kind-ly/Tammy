@@ -29,18 +29,18 @@ const Routes = () => {
         <Route path="/patients/{patientId:String}/tasks/{taskId:String}/edit" page={TaskEditTaskPage} name="editTask" />
       </PrivateSet>
 
+      {/* USERS/CAREGIVERS */}
+      <PrivateSet unauthenticated="home" wrap={MainLayout}>
+        <Route path="/caregiver/{id:String}" page={CareGiverPage} name="careGiver" />
+      </PrivateSet>
+
+      {/* ADMIN */}
       <PrivateSet unauthenticated="home" roles="admin" wrap={MainLayout}>
         <Route path="/admin/devices" page={AdminDevicesPage} name="devices" />
         <Route path="/admin/devices/new" page={AdminNewDevicePage} name="newDevice" />
         <Route path="/admin/devices/{id:Int}/edit" page={AdminEditDevicePage} name="editDevice" />
       </PrivateSet>
 
-      {/* <Set wrap={ScaffoldLayout} title="CareGivers" titleTo="careGivers" buttonLabel="New CareGiver" buttonTo="newCareGiver">
-        <Route path="/care-givers/new" page={CareGiverNewCareGiverPage} name="newCareGiver" />
-        <Route path="/care-givers/{id:Int}/edit" page={CareGiverEditCareGiverPage} name="editCareGiver" />
-        <Route path="/care-givers/{id:Int}" page={CareGiverCareGiverPage} name="careGiver" />
-        <Route path="/care-givers" page={CareGiverCareGiversPage} name="careGivers" />
-      </Set> */}
       <Route notfound page={NotFoundPage} />
     </Router>
   )
